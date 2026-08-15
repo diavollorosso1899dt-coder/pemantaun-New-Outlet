@@ -15,7 +15,7 @@ const MIME_TYPES = {
     '.svg': 'image/svg+xml'
 };
 
-const requestHandler = (req, res) => {
+const server = http.createServer((req, res) => {
     let filePath = path.join(PUBLIC_DIR, req.url === '/' ? 'index.html' : req.url);
     const extname = path.extname(filePath);
     let contentType = MIME_TYPES[extname] || 'application/octet-stream';
@@ -36,14 +36,8 @@ const requestHandler = (req, res) => {
             res.end(content, 'utf-8');
         }
     });
-};
+});
 
-const server = http.createServer(requestHandler);
-
-if (require.main === module) {
-    server.listen(PORT, () => {
-        console.log(`Server is running at http://localhost:${PORT}/`);
-    });
-}
-
-module.exports = requestHandler;
+server.listen(PORT, () => {
+    console.log(`Local dev server running at http://localhost:${PORT}/`);
+});

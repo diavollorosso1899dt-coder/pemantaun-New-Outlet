@@ -1,0 +1,3 @@
+local_dev_server.js
+*.log
+.git
