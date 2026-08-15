@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Outlet Asset Tracker — Validasi Dua Arah 3-Role (Admin GA, Logistik, Outlet)</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header>
+        <div class="nav-container">
+            <!-- Brand Logo -->
+            <div class="brand-wrapper" id="brandLogoWrapper" title="New Outlet Asset Tracker (Klik 2x / Ctrl+Shift+A untuk Rahasia Admin GA)">
+                <div class="brand-icon-tile">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div>
+                    <h1 class="brand-title">New Outlet Asset Tracker</h1>
+                    <p class="brand-subtitle">Pusat Monitoring Semua Proses (Admin GA • Logistik • Outlet)</p>
+                </div>
+            </div>
+
+            <!-- Segmented Area Selector & Role Bar -->
+            <div class="header-controls">
+                <div class="segmented-control">
+                    <button class="control-btn active" data-area="ALL" id="areaAll">🌐 Semua Area</button>
+                    <button class="control-btn" data-area="JABODETABEK" id="areaJabo">🏙️ Area Jabo</button>
+                    <button class="control-btn" data-area="KALBAR" id="areaKalbar">🌴 Area Kalbar</button>
+                </div>
+
+                <!-- 3 Role Buttons -->
+                <div class="role-group" id="roleGroup">
+                    <button class="role-badge-btn active-admin" data-role="admin_ga" id="btnRoleAdminGA" title="Pusat Monitoring Semuanya">
+                        <i class="fa-solid fa-shield-halved"></i> Admin GA
+                    </button>
+                    <button class="role-badge-btn" data-role="logistik" id="btnRoleLogistik" title="Input Qty & Keterangan">
+                        <i class="fa-solid fa-truck-ramp-box"></i> Logistik
+                    </button>
+                    <button class="role-badge-btn" data-role="outlet" id="btnRoleOutlet" title="Validasi Terima / Tolak Fisik Barang">
+                        <i class="fa-solid fa-shop"></i> Outlet PIC
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main>
+
+        <!-- Dynamic Role Context Banner -->
+        <div class="role-banner-card admin-banner" id="roleBannerCard">
+            <div>
+                <h2 class="banner-title-text" id="bannerTitle"><i class="fa-solid fa-shield-halved" style="color: var(--indigo);"></i> Mode Tampilan: Admin GA (Pusat Monitoring Semua Proses)</h2>
+                <p class="banner-subtitle-text" id="bannerDesc">Pusat Monitoring menampilkan seluruh proses lifecycle aset (Pengajuan RAB ➔ Check Gudang ➔ Procurement ➔ Logistik ➔ Outlet).</p>
+            </div>
+            <div style="display: flex; gap: 0.6rem;">
+                <button class="btn btn-subtle" id="btnResetData"><i class="fa-solid fa-rotate-left"></i> Reset Demo</button>
+                <button class="btn btn-primary" id="btnSyncLive"><i class="fa-solid fa-arrows-rotate"></i> Sync Google Sheets</button>
+            </div>
+        </div>
+
+        <!-- 5-STAGE PROCESS LIFECYCLE BAR -->
+        <div class="process-pipeline-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem;">
+                <h3 style="font-size: 0.95rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
+                    <i class="fa-solid fa-diagram-next" style="color: var(--primary);"></i> Alur 5-Stage Process Monitoring Aset
+                </h3>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Klik stage untuk memfilter tampilan</span>
+            </div>
+            <div class="pipeline-grid">
+                <div class="pipeline-step-box" data-stage="1" id="pipeStage1">
+                    <div class="pipeline-step-tag">STAGE 1</div>
+                    <div class="pipeline-step-title">Pengajuan RAB</div>
+                    <div class="pipeline-step-count" id="countPipe1">0 Item</div>
+                </div>
+                <div class="pipeline-step-box" data-stage="2" id="pipeStage2">
+                    <div class="pipeline-step-tag">STAGE 2</div>
+                    <div class="pipeline-step-title">Ready Gudang</div>
+                    <div class="pipeline-step-count" id="countPipe2">0 Item</div>
+                </div>
+                <div class="pipeline-step-box" data-stage="3" id="pipeStage3">
+                    <div class="pipeline-step-tag">STAGE 3</div>
+                    <div class="pipeline-step-title">Procurement PO</div>
+                    <div class="pipeline-step-count" id="countPipe3">0 Item</div>
+                </div>
+                <div class="pipeline-step-box" data-stage="4" id="pipeStage4">
+                    <div class="pipeline-step-tag">STAGE 4</div>
+                    <div class="pipeline-step-title">Pengiriman Logistik</div>
+                    <div class="pipeline-step-count" id="countPipe4">0 Item</div>
+                </div>
+                <div class="pipeline-step-box" data-stage="5" id="pipeStage5">
+                    <div class="pipeline-step-tag">STAGE 5</div>
+                    <div class="pipeline-step-title">Validasi Outlet</div>
+                    <div class="pipeline-step-count" id="countPipe5">0 Item</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stat Executive KPI Grid -->
+        <section class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="stat-card card-blue">
+                <div class="stat-title">Total Outlet</div>
+                <div class="stat-number" id="kpiOutlets">0</div>
+                <div class="stat-subtitle">Cabang Monitored</div>
+            </div>
+
+            <div class="stat-card card-blue">
+                <div class="stat-title">Total Item Order</div>
+                <div class="stat-number" id="kpiTotalItems" style="color: var(--primary);">0</div>
+                <div class="stat-subtitle">Aset Terdaftar</div>
+            </div>
+
+            <div class="stat-card card-emerald">
+                <div class="stat-title">Item Valid & Diterima</div>
+                <div class="stat-number" id="kpiReceived" style="color: var(--emerald);">0</div>
+                <div class="stat-subtitle">Sesuai Fisik Outlet</div>
+            </div>
+
+            <div class="stat-card card-amber">
+                <div class="stat-title">Dalam Pengiriman Logistik</div>
+                <div class="stat-number" id="kpiInTransit" style="color: var(--amber);">0</div>
+                <div class="stat-subtitle">Menunggu Check Outlet</div>
+            </div>
+
+            <div class="stat-card card-rose">
+                <div class="stat-title">Ditolak Outlet (Perlu Revisi)</div>
+                <div class="stat-number" id="kpiRejected" style="color: var(--rose);">0</div>
+                <div class="stat-subtitle">Validasi Dua Arah Mismatch</div>
+            </div>
+        </section>
+
+        <!-- Monitoring Tab Switcher Bar (Admin GA) -->
+        <div class="monitoring-tab-bar" id="monitoringTabBar">
+            <button class="monitoring-tab-btn active" data-tab="outlet-view"><i class="fa-solid fa-store"></i> Monitoring Rekap Outlet & SLA</button>
+            <button class="monitoring-tab-btn" data-tab="all-items-view"><i class="fa-solid fa-list-check"></i> Monitoring Detail Semua Process Item</button>
+        </div>
+
+        <!-- Main Global Search & Filter Bar -->
+        <div class="toolbar-container">
+            <div class="search-box-input">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" class="search-field" placeholder="Cari nama outlet, kode RAB, atau item aset (Contoh: Freezer, Meja, Nini)...">
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <select id="filterSlaSelect" class="select-filter">
+                    <option value="" selected>Semua Status Validasi</option>
+                    <option value="rejected">❌ Ditolak Outlet (Perlu Revisi Logistik)</option>
+                    <option value="in_transit">🚚 Menunggu Konfirmasi Outlet</option>
+                    <option value="success">✅ Valid & Diterima Outlet (100%)</option>
+                </select>
+                <button class="btn btn-subtle" id="btnExportCSV"><i class="fa-solid fa-download"></i> Ekspor CSV</button>
+            </div>
+        </div>
+
+        <!-- OUTLET CARD LIST TABLE -->
+        <div class="enterprise-card-table" id="outletTableContainer">
+            <table class="enterprise-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">NAMA OUTLET / DETAIL</th>
+                        <th style="width: 22%;">TGL ORDER & DEADLINE</th>
+                        <th style="width: 18%;">STATUS VALIDASI SLA</th>
+                        <th style="width: 20%;">PROGRESS ASET</th>
+                        <th style="width: 10%; text-align: center;">AKSI</th>
+                    </tr>
+                </thead>
+                <tbody id="outletTableBody">
+                    <!-- Populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ALL PROCESS ITEMS TABLE -->
+        <div class="enterprise-card-table" id="allItemsTableContainer" style="display: none;">
+            <table class="enterprise-table">
+                <thead>
+                    <tr>
+                        <th>Area</th>
+                        <th>Outlet</th>
+                        <th>Item Aset</th>
+                        <th>Qty Order</th>
+                        <th>Qty Logistik</th>
+                        <th>Status Process</th>
+                        <th>Penerima / PIC</th>
+                        <th>Catatan Logistik / Outlet</th>
+                    </tr>
+                </thead>
+                <tbody id="allItemsTableBody">
+                    <!-- Populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- BATCH DIALOG MODAL FOR LOGISTIK & ADMIN GA -->
+    <div class="modal-backdrop" id="outletBatchModal">
+        <div class="modal-dialog-card" style="max-width: 1140px;">
+            <div class="dialog-header">
+                <div>
+                    <h2 class="dialog-title" id="modalBatchOutletTitle">Warung Nini Kisamaun</h2>
+                    <div class="dialog-badges">
+                        <span class="pill-rab" id="modalBatchRab">RAB: 079-3B</span>
+                        <span class="pill-area-jabo" id="modalBatchCategory">New Outlet JABO</span>
+                    </div>
+                </div>
+                <button class="dialog-close-btn" id="btnCloseBatchModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Modal Inner Item Search Bar -->
+            <div style="padding: 1rem 2.25rem 0.5rem; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+                <div style="position: relative;">
+                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #94a3b8;"></i>
+                    <input type="text" id="modalBatchSearchInput" class="modal-search-field" placeholder="Cari nama item aset atau spesifikasi di dalam outlet ini...">
+                </div>
+            </div>
+
+            <div class="dialog-body">
+                <table class="modal-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 26%;">NAMA ITEM ASET</th>
+                            <th style="width: 8%; text-align: center;">QTY ORDER</th>
+                            <th style="width: 10%; text-align: center;">QTY DIKIRIM</th>
+                            <th style="width: 20%;">STATUS PENGIRIMAN</th>
+                            <th style="width: 18%;">PENERIMA / PIC LOKASI</th>
+                            <th style="width: 18%;">KETERANGAN LOGISTIK</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalBatchTableBody">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="dialog-footer">
+                <button class="btn-dialog-cancel" id="btnCancelBatchModal">Batal</button>
+                <button class="btn-dialog-save" id="btnSaveBatchModal"><i class="fa-solid fa-check"></i> Simpan Input Logistik</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- OUTLET INSPECTION MODAL -->
+    <div class="modal-backdrop" id="outletInspectionModal">
+        <div class="modal-dialog-card" style="max-width: 980px;">
+            <div class="dialog-header" style="background: #ecfdf5;">
+                <div>
+                    <h2 class="dialog-title" style="color: #047857;" id="modalOutletInspectionTitle">Konfirmasi Penerimaan Aset Physical Outlet</h2>
+                    <p style="font-size: 0.8rem; color: #059669; margin-top: 0.2rem;">Cocokkan fisik barang di outlet dengan data yang diketik oleh Tim Logistik.</p>
+                </div>
+                <button class="dialog-close-btn" id="btnCloseInspectionModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Modal Inner Item Search Bar -->
+            <div style="padding: 1rem 2.25rem 0.5rem; background: #ecfdf5; border-bottom: 1px solid #a7f3d0;">
+                <div style="position: relative;">
+                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #059669;"></i>
+                    <input type="text" id="modalInspectionSearchInput" class="modal-search-field" placeholder="Cari nama item aset atau spesifikasi untuk dikonfirmasi..." style="border-color: #a7f3d0; background: #ffffff;">
+                </div>
+            </div>
+
+            <div class="dialog-body">
+                <table class="modal-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">ITEM ASET</th>
+                            <th style="width: 8%; text-align: center;">QTY ORDER</th>
+                            <th style="width: 10%; text-align: center;">QTY LOGISTIK</th>
+                            <th style="width: 18%;">PENERIMA / PIC</th>
+                            <th style="width: 18%;">KETERANGAN LOGISTIK</th>
+                            <th style="width: 21%; text-align: center;">AKSI VALIDASI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalInspectionTableBody">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="dialog-footer">
+                <button class="btn-dialog-cancel" id="btnCancelInspectionModal">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- REJECTION REASON PROMPT MODAL -->
+    <div class="modal-backdrop" id="rejectionModal">
+        <div class="modal-dialog-card" style="max-width: 480px; padding: 0;">
+            <div class="dialog-header" style="background: #fef2f2;">
+                <div>
+                    <h3 style="color: #dc2626; font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-triangle-exclamation"></i> Tolak Barang ke Logistik</h3>
+                    <p style="font-size: 0.75rem; color: #b91c1c; margin-top: 0.2rem;">Item akan dikembalikan ke Logistik untuk direvisi.</p>
+                </div>
+            </div>
+            <div style="padding: 1.5rem;">
+                <input type="hidden" id="rejectAssetId">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">Nama Item Aset</label>
+                    <input type="text" id="rejectItemName" readonly style="width: 100%; padding: 0.5rem; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; font-weight: 700; color: #0f172a;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">Nama PIC Outlet (Wajib)</label>
+                    <input type="text" id="rejectPicName" placeholder="Masukkan nama Anda..." required style="width: 100%; padding: 0.55rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #dc2626; margin-bottom: 0.35rem;">Alasan Penolakan (Wajib)</label>
+                    <textarea id="rejectReasonText" rows="3" placeholder="Contoh: Logistik ketik 5 unit, tapi fisik yang sampai hanya 3 unit..." required style="width: 100%; padding: 0.55rem; border: 1px solid #fca5a5; border-radius: 6px;"></textarea>
+                </div>
+            </div>
+            <div class="dialog-footer">
+                <button class="btn-dialog-cancel" id="btnCancelRejectModal">Batal</button>
+                <button class="btn-reject-item" id="btnConfirmRejectSubmit"><i class="fa-solid fa-xmark"></i> Kirim Penolakan ke Logistik</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECRET ADMIN PASSCODE MODAL -->
+    <div class="modal-backdrop" id="secretAdminModal">
+        <div class="modal-dialog-card" style="max-width: 400px; padding: 0;">
+            <div class="dialog-header" style="background: #eef2ff;">
+                <div>
+                    <h3 style="color: #3730a3; font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-key"></i> Otentikasi Rahasia Admin GA</h3>
+                    <p style="font-size: 0.75rem; color: #4338ca; margin-top: 0.2rem;">Masukkan PIN Rahasia untuk membuka Tampilan Admin GA.</p>
+                </div>
+            </div>
+            <form id="secretAdminForm" style="padding: 1.5rem;">
+                <div style="margin-bottom: 1.25rem;">
+                    <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">PIN Admin GA (Default: 1234)</label>
+                    <input type="password" id="secretPinInput" placeholder="Masukkan 4-digit PIN..." required autofocus style="width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 8px; text-align: center; font-size: 1.2rem; letter-spacing: 0.3em;">
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                    <button type="button" class="btn-dialog-cancel" id="btnCancelSecretModal">Batal</button>
+                    <button type="submit" class="btn-dialog-save" style="background: #4338ca;"><i class="fa-solid fa-unlock"></i> Masuk Admin GA</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- App Logic Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
