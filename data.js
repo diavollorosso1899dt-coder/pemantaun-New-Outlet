@@ -1,5 +1,5 @@
 /**
- * New Outlet Asset Monitoring System - RAB Separated Outlet Engine
+ * New Outlet Asset Monitoring System - JABO Column E & KALBAR Column F RAB Engine
  * Grouping by Unique Combination of (Outlet Name + RAB Code)
  */
 
@@ -12704,7 +12704,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-986",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Mie Ayam Muntjul Karawang",
     "rabCode": "072-3B",
     "item": "Sendok/centong sayur",
     "tglOrder": "20 Jun 2026",
@@ -12727,7 +12727,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-987",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Ayam Makmur Cipondoh",
     "rabCode": "073-3B",
     "item": "Box donat",
     "tglOrder": "20 Jun 2026",
@@ -13234,7 +13234,7 @@ const INITIAL_ASSETS = [
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
     "outlet": "Warung Nini Kisamaun",
-    "rabCode": "Perlengkapan mes",
+    "rabCode": "071-3B",
     "item": "Lemari mes manager untuk pinang",
     "tglOrder": "20 Jun 2026",
     "tglOpening": "03/03/26 12:27:26",
@@ -13256,8 +13256,8 @@ const INITIAL_ASSETS = [
     "id": "JABO-1082",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
-    "rabCode": "office",
+    "outlet": "Mie Ayam Muntjul Karawang",
+    "rabCode": "072-3B",
     "item": "Brankas standar yg sudah ada",
     "tglOrder": "20 Jun 2026",
     "tglOpening": "03/03/26 12:27:30",
@@ -19490,7 +19490,7 @@ const INITIAL_ASSETS = [
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
     "outlet": "Warung Nini Kisamaun",
-    "rabCode": "Perlengkapan mes",
+    "rabCode": "073-3B",
     "item": "kipas angin",
     "tglOrder": "20 Jun 2026",
     "tglOpening": "04/02/26 15:32:51",
@@ -19673,8 +19673,8 @@ const INITIAL_ASSETS = [
     "id": "JABO-1456",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
-    "rabCode": "office",
+    "outlet": "Warung Nini Karawang",
+    "rabCode": "074-3B",
     "item": "CCTV",
     "tglOrder": "20 Jun 2026",
     "tglOpening": "04/02/26 15:32:51",
@@ -19788,8 +19788,8 @@ const INITIAL_ASSETS = [
     "id": "JABO-1461",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
-    "rabCode": "office",
+    "outlet": "Ayam Makmur Cipondoh",
+    "rabCode": "071-3B",
     "item": "Laptop",
     "tglOrder": "20 Jun 2026",
     "tglOpening": "04/02/26 15:32:51",
@@ -20271,7 +20271,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1488",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Sop Mak Garang Kisamaun",
     "rabCode": "074-3B",
     "item": "Gordyn Lesehan (nini serang )",
     "tglOrder": "20 Jun 2026",
@@ -20317,7 +20317,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1491",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Ayam Makmur Cipondoh",
     "rabCode": "073-3B",
     "item": "Meja Lesehan (4 orang) ( nini serang)",
     "tglOrder": "20 Jun 2026",
@@ -20340,7 +20340,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1492",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Warung Nini Karawang",
     "rabCode": "074-3B",
     "item": "Kursi lesehan sandar rotan ( nini serang)",
     "tglOrder": "20 Jun 2026",
@@ -20386,7 +20386,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1497",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Ayam Makmur Cipondoh",
     "rabCode": "071-3B",
     "item": "Meja depan service ( kap 6 orang) - nini serang",
     "tglOrder": "20 Jun 2026",
@@ -20409,7 +20409,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1500",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Sop Mak Garang Kisamaun",
     "rabCode": "074-3B",
     "item": "Kursi rotan jati minimalis - nini serang",
     "tglOrder": "20 Jun 2026",
@@ -20892,7 +20892,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1538",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Mie Ayam Muntjul Karawang",
     "rabCode": "037",
     "item": "Lampu Gantung Kap Rotan ( Nini Serang)",
     "tglOrder": "20 Jun 2026",
@@ -20915,7 +20915,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1539",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Ayam Makmur Cipondoh",
     "rabCode": "037",
     "item": "Lampu Tiang Kap Bambu (Nini Serang)",
     "tglOrder": "20 Jun 2026",
@@ -20938,7 +20938,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1540",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Warung Nini Karawang",
     "rabCode": "037",
     "item": "Lampu Dinding Rotan/Bambu ( Nini Serang)",
     "tglOrder": "20 Jun 2026",
@@ -20961,7 +20961,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1541",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Ayam Makmur Serang",
     "rabCode": "037",
     "item": "Lampion Kotak ( Nini Serang)",
     "tglOrder": "20 Jun 2026",
@@ -21536,7 +21536,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1588",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Warung Nini Karawang",
     "rabCode": "074-3B",
     "item": "Laptop",
     "tglOrder": "20 Jun 2026",
@@ -22709,8 +22709,8 @@ const INITIAL_ASSETS = [
     "id": "JABO-1659",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
-    "rabCode": "office",
+    "outlet": "Ayam Makmur Cipondoh",
+    "rabCode": "073-3B",
     "item": "Dispenser air minum galon bawah merek polytron",
     "tglOrder": "20 Jun 2026",
     "tglOpening": "15/05/26 14:14:55",
@@ -23422,7 +23422,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1718",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Mie Ayam Muntjul Karawang",
     "rabCode": "184-1G",
     "item": "Tanaman Helicornia",
     "tglOrder": "20 Jun 2026",
@@ -23445,7 +23445,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1719",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Ayam Makmur Cipondoh",
     "rabCode": "184-1G",
     "item": "Tanaman Bakung Lele",
     "tglOrder": "20 Jun 2026",
@@ -23468,7 +23468,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1720",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Warung Nini Karawang",
     "rabCode": "184-1G",
     "item": "Tanaman Calatea",
     "tglOrder": "20 Jun 2026",
@@ -23491,7 +23491,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1721",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Ayam Makmur Serang",
     "rabCode": "184-2A",
     "item": "Lampu Lentera Mushola",
     "tglOrder": "20 Jun 2026",
@@ -23514,7 +23514,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1722",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Sop Mak Garang Kisamaun",
     "rabCode": "184-2A",
     "item": "Lampu dinding",
     "tglOrder": "20 Jun 2026",
@@ -23537,7 +23537,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1725",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Ayam Makmur Cipondoh",
     "rabCode": "053-2A",
     "item": "Rak Gudang B",
     "tglOrder": "20 Jun 2026",
@@ -23560,7 +23560,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1730",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Mie Ayam Muntjul Karawang",
     "rabCode": "053-2A",
     "item": "Rak Gudang A",
     "tglOrder": "20 Jun 2026",
@@ -23606,8 +23606,8 @@ const INITIAL_ASSETS = [
     "id": "JABO-1740",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
-    "rabCode": "Muhola KRW",
+    "outlet": "Sop Mak Garang Kisamaun",
+    "rabCode": "074-3B",
     "item": "Lampu LED strip",
     "tglOrder": "20 Jun 2026",
     "tglOpening": "15/05/26 14:14:55",
@@ -24756,7 +24756,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1803",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Ayam Makmur Cipondoh",
     "rabCode": "184-2B",
     "item": "Karpet Mushola",
     "tglOrder": "20 Jun 2026",
@@ -24779,7 +24779,7 @@ const INITIAL_ASSETS = [
     "id": "JABO-1804",
     "area": "JABODETABEK",
     "areaLabel": "New Outlet JABO",
-    "outlet": "Warung Nini Kisamaun",
+    "outlet": "Warung Nini Karawang",
     "rabCode": "184-2B",
     "item": "Karpet Mess Karyawan",
     "tglOrder": "20 Jun 2026",
@@ -40488,8 +40488,8 @@ const INITIAL_ASSETS = [
     "id": "KLBR-1",
     "area": "KALBAR",
     "areaLabel": "New Brand KALBAR",
-    "outlet": "Ayam Goreng Makmur",
-    "rabCode": "No RAB (wajib isi oleh Humas RAB yang sudah di acc)",
+    "outlet": "Ayam Goreng Makmur Johar",
+    "rabCode": "081-2A",
     "item": "Item",
     "tglOrder": "28 Jun 2026",
     "tglOpening": "1 SEP 2026",
@@ -40511,7 +40511,7 @@ const INITIAL_ASSETS = [
     "id": "KLBR-3",
     "area": "KALBAR",
     "areaLabel": "New Brand KALBAR",
-    "outlet": "Ayam Goreng Makmur",
+    "outlet": "Warung Koyan Sejahtera",
     "rabCode": "083-2A",
     "item": "akrilik no meja",
     "tglOrder": "28 Jun 2026",
@@ -41592,7 +41592,7 @@ const INITIAL_ASSETS = [
     "id": "KLBR-55",
     "area": "KALBAR",
     "areaLabel": "New Brand KALBAR",
-    "outlet": "Ayam Goreng Makmur",
+    "outlet": "Ayam Goreng Makmur Johar",
     "rabCode": "085-2A",
     "item": "kemoceng",
     "tglOrder": "28 Jun 2026",
@@ -67168,13 +67168,13 @@ const INITIAL_ASSETS = [
 
 class AssetDataManager {
     constructor() {
-        this.storageKey = "NEW_OUTLET_RAB_SEPARATED_V11";
+        this.storageKey = "NEW_OUTLET_JABO_COL_E_V12";
         this.assets = this.loadLocalAssets();
     }
 
     loadLocalAssets() {
-        // Clear all older keys
-        ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10"].forEach(k => {
+        // Clear older localStorage keys to avoid stale caches
+        ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11"].forEach(k => {
             try { localStorage.removeItem(k); } catch (e) {}
         });
 
@@ -67207,7 +67207,7 @@ class AssetDataManager {
         return this.assets.filter(a => a.area === areaFilter);
     }
 
-    // GROUPING BY (Outlet Name + No. RAB) -> Separating outlets by No. RAB as requested!
+    // GROUPING BY (Outlet Name + No. RAB)
     getOutlets(areaFilter = null) {
         const assets = this.getAssets(areaFilter);
         const outletMap = {};
