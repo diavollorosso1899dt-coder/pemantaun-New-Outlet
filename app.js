@@ -1,10 +1,10 @@
 /**
- * New Outlet Asset Monitoring System - RAB Separated Outlet Engine
+ * New Outlet Asset Monitoring System - Tgl Pengajuan (Column B) Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     // Clear old localStorage keys
-    ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10"].forEach(k => {
+    ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12"].forEach(k => {
         try { localStorage.removeItem(k); } catch (e) {}
     });
 
@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBatchOutletTitle = document.getElementById('modalBatchOutletTitle');
     const modalBatchRab = document.getElementById('modalBatchRab');
     const modalBatchCategory = document.getElementById('modalBatchCategory');
+    const modalBatchTglPengajuan = document.getElementById('modalBatchTglPengajuan');
     const modalBatchTableBody = document.getElementById('modalBatchTableBody');
     const modalBatchSearchInput = document.getElementById('modalBatchSearchInput');
     const btnCloseBatchModal = document.getElementById('btnCloseBatchModal');
@@ -385,6 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filtered = filtered.filter(o => 
                 o.name.toLowerCase().includes(state.searchQuery) ||
                 o.rabCode.toLowerCase().includes(state.searchQuery) ||
+                (o.tglPengajuan && o.tglPengajuan.toLowerCase().includes(state.searchQuery)) ||
                 o.items.some(i => i.item.toLowerCase().includes(state.searchQuery) || (i.spesifikasi && i.spesifikasi.toLowerCase().includes(state.searchQuery)))
             );
             filtered.forEach(o => state.expandedOutlets.add(o.key));
@@ -444,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
-            // Main Row — Outlets grouped strictly by (Name + No. RAB)!
+            // Main Row — Display TGL PENGAJUAN (KOLOM B) prominently!
             html += `
                 <tr class="outlet-main-row" data-outlet-key="${o.key.replace(/"/g, '&quot;')}">
                     <!-- NAMA OUTLET / DETAIL -->
@@ -462,10 +464,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </td>
 
-                    <!-- TGL ORDER & DEADLINE -->
+                    <!-- TGL PENGAJUAN (KOLOM B) & TARGET BUKA -->
                     <td>
-                        <div class="date-block-label">TGL ORDER:</div>
-                        <div class="date-block-value">${o.tglOrder}</div>
+                        <div class="date-block-label">TGL PENGAJUAN (KOLOM B):</div>
+                        <div class="date-block-value" style="color:#2563eb; font-weight:800;"><i class="fa-regular fa-calendar-days"></i> ${o.tglPengajuan}</div>
                         <span class="pill-opening-date"><i class="fa-regular fa-calendar-check"></i> BUKA: ${o.tglOpening}</span>
                     </td>
 
@@ -534,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td colspan="5" style="padding: 0;">
                             <div class="inline-subtable-wrapper">
                                 <div style="font-size:0.85rem; font-weight:800; color:#0f172a; margin-bottom:0.75rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
-                                    <span><i class="fa-solid fa-list" style="color:var(--primary);"></i> Rincian Aset Item (${displayedItems.length} / ${o.total} Item) — ${o.name} [RAB: ${o.rabCode}]</span>
+                                    <span><i class="fa-solid fa-list" style="color:var(--primary);"></i> Rincian Aset Item (${displayedItems.length} / ${o.total} Item) — ${o.name} [RAB: ${o.rabCode} • Tgl Pengajuan: ${o.tglPengajuan}]</span>
                                     
                                     <!-- Inner Subtable Item Search Input -->
                                     <div style="position:relative;">
@@ -575,6 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 a.item.toLowerCase().includes(state.searchQuery) ||
                 a.outlet.toLowerCase().includes(state.searchQuery) ||
                 a.rabCode.toLowerCase().includes(state.searchQuery) ||
+                (a.tglPengajuan && a.tglPengajuan.toLowerCase().includes(state.searchQuery)) ||
                 (a.picPenerima && a.picPenerima.toLowerCase().includes(state.searchQuery)) ||
                 a.keterangan.toLowerCase().includes(state.searchQuery)
             );
@@ -587,7 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (allItemsTableBody) {
                 allItemsTableBody.innerHTML = `
                     <tr>
-                        <td colspan="8" style="text-align: center; padding: 3rem; color: #94a3b8;">
+                        <td colspan="9" style="text-align: center; padding: 3rem; color: #94a3b8;">
                             Tidak ada item aset ditemukan untuk filter ini.
                         </td>
                     </tr>
@@ -611,7 +614,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <tr>
                         <td><span class="${areaBadgeClass}">${a.areaLabel}</span></td>
                         <td style="font-weight: 700; color: #0f172a;">${a.outlet} <br><span class="pill-rab" style="font-size:0.65rem;">RAB: ${a.rabCode}</span></td>
-                        <td style="font-weight: 700; color: #2563eb;">${a.item}</td>
+                        <td style="font-weight: 800; color: #2563eb;"><i class="fa-regular fa-calendar-days"></i> ${a.tglPengajuan}</td>
+                        <td style="font-weight: 700; color: #0f172a;">${a.item}</td>
                         <td style="text-align: center; font-weight: 800;">${a.qty}</td>
                         <td style="text-align: center; font-weight: 800; color: #059669;">${a.qtyDiterima}</td>
                         <td>${stageBadge}</td>
@@ -634,6 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modalBatchOutletTitle) modalBatchOutletTitle.textContent = outlet.name;
         if (modalBatchRab) modalBatchRab.textContent = `No. RAB: ${outlet.rabCode}`;
         if (modalBatchCategory) modalBatchCategory.textContent = outlet.areaLabel;
+        if (modalBatchTglPengajuan) modalBatchTglPengajuan.innerHTML = `<i class="fa-regular fa-calendar-days"></i> Tgl Pengajuan (Kolom B): ${outlet.tglPengajuan}`;
 
         renderBatchModalTable();
         if (outletBatchModal) outletBatchModal.classList.add('active');
@@ -861,18 +866,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function exportCSV() {
         const outlets = window.dataManager.getOutlets(state.selectedArea);
-        let csvContent = "data:text/csv;charset=utf-8,Outlet,Area,NoRAB,Item,QtyOrder,QtyLogistik,StatusValidasi,PenerimaPIC,KetLogistik,AlasanTolakOutlet\n";
+        let csvContent = "data:text/csv;charset=utf-8,Outlet,Area,NoRAB,TglPengajuan,Item,QtyOrder,QtyLogistik,StatusValidasi,PenerimaPIC,KetLogistik,AlasanTolakOutlet\n";
 
         outlets.forEach(o => {
             o.items.forEach(i => {
-                csvContent += `"${o.name}","${o.area}","${o.rabCode}","${i.item}","${i.qty}","${i.qtyDiterima}","${i.statusPengiriman}","${(i.picPenerima||'').replace(/"/g, '""')}","${(i.keterangan||'').replace(/"/g, '""')}","${(i.alasanPenolakan||'').replace(/"/g, '""')}"\n`;
+                csvContent += `"${o.name}","${o.area}","${o.rabCode}","${i.tglPengajuan}","${i.item}","${i.qty}","${i.qtyDiterima}","${i.statusPengiriman}","${(i.picPenerima||'').replace(/"/g, '""')}","${(i.keterangan||'').replace(/"/g, '""')}","${(i.alasanPenolakan||'').replace(/"/g, '""')}"\n`;
             });
         });
 
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `Enterprise_Sistemasi_Aset_RAB_Separated_${state.selectedArea}_${new Date().toISOString().split('T')[0]}.csv`);
+        link.setAttribute("download", `Enterprise_Sistemasi_Aset_TglPengajuan_${state.selectedArea}_${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

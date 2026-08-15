@@ -148,7 +148,7 @@
         <div class="toolbar-container">
             <div class="search-box-input">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" class="search-field" placeholder="Cari nama outlet, kode RAB, atau item aset (Contoh: Freezer, Meja, Nini)...">
+                <input type="text" id="searchInput" class="search-field" placeholder="Cari nama outlet, kode RAB, tgl pengajuan, atau item aset...">
             </div>
             <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
                 <select id="filterSlaSelect" class="select-filter">
@@ -166,8 +166,8 @@
             <table class="enterprise-table">
                 <thead>
                     <tr>
-                        <th style="width: 30%;">NAMA OUTLET / DETAIL</th>
-                        <th style="width: 22%;">TGL ORDER & DEADLINE</th>
+                        <th style="width: 28%;">NAMA OUTLET / DETAIL</th>
+                        <th style="width: 24%;">TGL PENGAJUAN (KOLOM B) & BUKA</th>
                         <th style="width: 18%;">STATUS VALIDASI SLA</th>
                         <th style="width: 20%;">PROGRESS ASET</th>
                         <th style="width: 10%; text-align: center;">AKSI</th>
@@ -185,7 +185,8 @@
                 <thead>
                     <tr>
                         <th>Area</th>
-                        <th>Outlet</th>
+                        <th>Outlet & No. RAB</th>
+                        <th>Tgl Pengajuan (Kolom B)</th>
                         <th>Item Aset</th>
                         <th>Qty Order</th>
                         <th>Qty Logistik</th>
@@ -211,6 +212,7 @@
                     <div class="dialog-badges">
                         <span class="pill-rab" id="modalBatchRab">RAB: 079-3B</span>
                         <span class="pill-area-jabo" id="modalBatchCategory">New Outlet JABO</span>
+                        <span class="pill-opening-date" id="modalBatchTglPengajuan" style="margin-left:0.5rem;"><i class="fa-regular fa-calendar-days"></i> Tgl Pengajuan: 06/06/2026</span>
                     </div>
                 </div>
                 <button class="dialog-close-btn" id="btnCloseBatchModal"><i class="fa-solid fa-xmark"></i></button>
