@@ -1,10 +1,10 @@
 /**
- * New Outlet Asset Monitoring System - Tgl Pengajuan (Column B) Engine
+ * New Outlet Asset Monitoring System - Real-time Continuous Status Sync Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Clear old localStorage keys
-    ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12"].forEach(k => {
+    // Clear old localStorage keys to ensure clean sync
+    ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12", "NEW_OUTLET_TGL_PENGAJUAN_V13", "NEW_OUTLET_FORMATTED_DATE_V14"].forEach(k => {
         try { localStorage.removeItem(k); } catch (e) {}
     });
 
@@ -87,7 +87,21 @@ document.addEventListener('DOMContentLoaded', () => {
         checkUrlAdminParams();
         setupSecretAdminTriggers();
         setupEventListeners();
+        setupRealtimeSync();
         render();
+    }
+
+    function setupRealtimeSync() {
+        // Auto sync state across windows and custom events
+        window.addEventListener('storage', () => {
+            if (window.dataManager) {
+                window.dataManager.assets = window.dataManager.loadLocalAssets();
+                render();
+            }
+        });
+        window.addEventListener('assetsUpdated', () => {
+            render();
+        });
     }
 
     function checkUrlAdminParams() {
@@ -332,14 +346,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (btnRoleLogistik) btnRoleLogistik.className = 'role-badge-btn active-logistik';
             if (roleBannerCard) roleBannerCard.className = 'role-banner-card logistik-banner';
             if (bannerTitle) bannerTitle.innerHTML = '<i class="fa-solid fa-truck-ramp-box" style="color: var(--amber);"></i> Mode Tampilan: Tim Logistik (Gudang)';
-            if (bannerDesc) bannerDesc.textContent = 'Mode Logistik terbatas hanya untuk mengetik Qty Dikirim, Penerima/PIC, dan Keterangan.';
+            if (bannerDesc) bannerDesc.textContent = 'Mode Logistik terbatas hanya untuk mengetik Qty Dikirim, Penerima/PIC, dan Keterangan. Status otomatis update realtime.';
             if (monitoringTabBar) monitoringTabBar.style.display = 'none';
         } else if (targetRole === 'outlet') {
             if (btnRoleAdminGA) btnRoleAdminGA.classList.add('hidden-role');
             if (btnRoleOutlet) btnRoleOutlet.className = 'role-badge-btn active-outlet';
             if (roleBannerCard) roleBannerCard.className = 'role-banner-card outlet-banner';
             if (bannerTitle) bannerTitle.innerHTML = '<i class="fa-solid fa-shop" style="color: var(--emerald);"></i> Mode Tampilan: Outlet PIC (Penerima Barang)';
-            if (bannerDesc) bannerDesc.textContent = 'Mode Outlet khusus memverifikasi fisik barang. Klik "Terima Barang" jika fisik sesuai, atau "Tolak Barang" jika quantity tidak sesuai.';
+            if (bannerDesc) bannerDesc.textContent = 'Mode Outlet khusus memverifikasi fisik barang. Klik "Terima Barang" jika fisik sesuai, atau "Tolak Barang" jika quantity tidak sesuai. Status otomatis update realtime.';
             if (monitoringTabBar) monitoringTabBar.style.display = 'none';
         }
 
@@ -350,13 +364,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const assets = window.dataManager.getAssets(state.selectedArea);
         const outlets = window.dataManager.getOutlets(state.selectedArea);
 
-        // Update 5-Stage Pipeline counts
+        // Update 5-Stage Pipeline counts dynamically
         for (let s = 1; s <= 5; s++) {
             const count = assets.filter(a => parseInt(a.stage) === s).length;
             setSafeText(`countPipe${s}`, `${count} Item`);
         }
 
-        // Render KPI summary safely
+        // Render KPI summary safely & dynamically
         setSafeText('kpiOutlets', outlets.length);
         const totalItemsCount = outlets.reduce((sum, o) => sum + o.total, 0);
         const acceptedItemsCount = outlets.reduce((sum, o) => sum + o.acceptedCount, 0);
@@ -683,6 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <option value="📦 Ready Gudang" ${parseInt(item.stage) === 2 ? 'selected' : ''}>📦 Ready Gudang</option>
                             <option value="🛒 Procurement PO" ${parseInt(item.stage) === 3 ? 'selected' : ''}>🛒 Procurement PO</option>
                             <option value="🚚 Dalam Pengiriman" ${parseInt(item.stage) === 4 || isRejected ? 'selected' : ''}>🚚 Dalam Pengiriman</option>
+                            <option value="✅ Valid & Diterima" ${parseInt(item.stage) === 5 ? 'selected' : ''}>✅ Valid & Diterima</option>
                         </select>
                     </td>
                     <td>
@@ -724,7 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.dataManager.batchUpdateLogistics(state.activeOutletKey, updates);
         closeBatchModal();
-        showToast(`Input Logistik & Nama Penerima untuk proyek RAB ini berhasil disimpan!`, "success");
+        showToast(`Status Logistik & Qty untuk ${updates.length} item berhasil diperbarui!`, "success");
         render();
     }
 
@@ -807,8 +822,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const pic = prompt("Masukkan Nama PIC Penerima Outlet:", defaultName);
                 if (pic === null) return;
 
-                window.dataManager.outletAcceptItem(assetId, pic);
-                showToast("Barang berhasil DITERIMA & DIKONFIRMASI oleh Outlet!", "success");
+                const updated = window.dataManager.outletAcceptItem(assetId, pic);
+                showToast(`Status "${updated.item}" diperbarui: ✅ Valid & Diterima Outlet!`, "success");
                 renderInspectionModalTable();
                 render();
                 return;
@@ -840,9 +855,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        window.dataManager.outletRejectItem(id, pic, reason);
+        const updated = window.dataManager.outletRejectItem(id, pic, reason);
         closeRejectionModal();
-        showToast("Barang DITOLAK! Item telah dikembalikan ke proses Logistik untuk direvisi.", "alert");
+        showToast(`Status "${updated.item}" diperbarui: ❌ Ditolak Outlet (Dikembalikan ke Logistik untuk Direvisi)!`, "alert");
         renderInspectionModalTable();
         render();
     }

@@ -1,5 +1,5 @@
 /**
- * New Outlet Asset Monitoring System - Formatted Date Engine (DD/MM/YYYY e.g. 13/7/2026, 6/6/2026)
+ * New Outlet Asset Monitoring System - Real-time Continuous Status Sync Engine
  */
 
 const INITIAL_ASSETS = [
@@ -70087,12 +70087,12 @@ const INITIAL_ASSETS = [
 
 class AssetDataManager {
     constructor() {
-        this.storageKey = "NEW_OUTLET_FORMATTED_DATE_V14";
+        this.storageKey = "NEW_OUTLET_CONTINUOUS_SYNC_V15";
         this.assets = this.loadLocalAssets();
     }
 
     loadLocalAssets() {
-        ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12", "NEW_OUTLET_TGL_PENGAJUAN_V13"].forEach(k => {
+        ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12", "NEW_OUTLET_TGL_PENGAJUAN_V13", "NEW_OUTLET_FORMATTED_DATE_V14"].forEach(k => {
             try { localStorage.removeItem(k); } catch (e) {}
         });
 
@@ -70112,6 +70112,10 @@ class AssetDataManager {
 
     saveAssets() {
         localStorage.setItem(this.storageKey, JSON.stringify(this.assets));
+        // Notify other windows/tabs in real-time
+        try {
+            window.dispatchEvent(new Event('assetsUpdated'));
+        } catch(e) {}
     }
 
     resetToDefault() {
@@ -70193,6 +70197,7 @@ class AssetDataManager {
         return outlets.find(o => o.key === outletKey || o.name === outletKey);
     }
 
+    // LOGISTIK INPUT BATCH UPDATE -> ALWAYS UPDATES STATUS & STAGE REALTIME
     batchUpdateLogistics(outletKey, itemsUpdates) {
         itemsUpdates.forEach(upd => {
             const asset = this.assets.find(a => a.id === upd.id);
@@ -70203,23 +70208,38 @@ class AssetDataManager {
                     asset.picPenerima = upd.picPenerima || '';
                 }
 
-                if (upd.statusPengiriman === '🚚 Dalam Pengiriman') {
+                const st = upd.statusPengiriman || '';
+                if (st.includes('Dalam Pengiriman') || st.includes('Stage 4')) {
                     asset.validationStatus = 'IN_TRANSIT';
                     asset.statusPengiriman = '🚚 Dalam Pengiriman (Konfirmasi Outlet)';
                     asset.pengirimanAset = true;
                     asset.stage = 4;
-                } else if (upd.statusPengiriman === '📦 Ready Gudang') {
+                    asset.alasanPenolakan = '';
+                } else if (st.includes('Valid & Diterima') || st.includes('Stage 5')) {
+                    asset.validationStatus = 'ACCEPTED';
+                    asset.statusPengiriman = '✅ Valid & Diterima Outlet';
+                    asset.terimaOutlet = true;
+                    asset.pengirimanAset = true;
+                    asset.stage = 5;
+                    asset.alasanPenolakan = '';
+                } else if (st.includes('Ready Gudang') || st.includes('Stage 2')) {
                     asset.validationStatus = 'PENDING_LOGISTIK';
                     asset.statusPengiriman = '📦 Ready Gudang';
                     asset.stage = 2;
-                } else if (upd.statusPengiriman === '🛒 Procurement PO') {
+                    asset.terimaOutlet = false;
+                    asset.pengirimanAset = false;
+                } else if (st.includes('Procurement') || st.includes('Stage 3')) {
                     asset.validationStatus = 'PENDING_LOGISTIK';
                     asset.statusPengiriman = '🛒 Procurement PO';
                     asset.stage = 3;
-                } else if (upd.statusPengiriman === '📝 Pengajuan RAB') {
+                    asset.terimaOutlet = false;
+                    asset.pengirimanAset = false;
+                } else if (st.includes('Pengajuan RAB') || st.includes('Stage 1')) {
                     asset.validationStatus = 'PENDING_LOGISTIK';
                     asset.statusPengiriman = '📝 Pengajuan RAB';
                     asset.stage = 1;
+                    asset.terimaOutlet = false;
+                    asset.pengirimanAset = false;
                 }
             }
         });
@@ -70228,6 +70248,7 @@ class AssetDataManager {
         return this.getOutletDetails(outletKey);
     }
 
+    // OUTLET ACCEPT ITEM -> ALWAYS UPDATES STATUS & STAGE 5 REALTIME
     outletAcceptItem(assetId, picName) {
         const asset = this.assets.find(a => a.id === assetId);
         if (!asset) return null;
@@ -70235,6 +70256,7 @@ class AssetDataManager {
         asset.validationStatus = 'ACCEPTED';
         asset.statusPengiriman = '✅ Valid & Diterima Outlet';
         asset.terimaOutlet = true;
+        asset.pengirimanAset = true;
         asset.picPenerima = picName || asset.picPenerima || 'PIC Outlet';
         asset.tglTerima = new Date().toISOString().split('T')[0];
         asset.stage = 5;
@@ -70244,6 +70266,7 @@ class AssetDataManager {
         return asset;
     }
 
+    // OUTLET REJECT ITEM -> ALWAYS UPDATES STATUS & STAGE 3 (REVISION) REALTIME
     outletRejectItem(assetId, picName, reason) {
         const asset = this.assets.find(a => a.id === assetId);
         if (!asset) return null;
