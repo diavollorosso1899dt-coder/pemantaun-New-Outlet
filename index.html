@@ -42,10 +42,10 @@
                     <button class="role-badge-btn active-admin" data-role="admin_ga" id="btnRoleAdminGA" title="Pusat Monitoring Semuanya">
                         <i class="fa-solid fa-shield-halved"></i> Admin GA
                     </button>
-                    <button class="role-badge-btn" data-role="logistik" id="btnRoleLogistik" title="Input Qty & Keterangan">
+                    <button class="role-badge-btn" data-role="logistik" id="btnRoleLogistik" title="Input Qty & Ceklis Kolom X, Y, Z">
                         <i class="fa-solid fa-truck-ramp-box"></i> Logistik
                     </button>
-                    <button class="role-badge-btn" data-role="outlet" id="btnRoleOutlet" title="Validasi Terima / Tolak Fisik Barang">
+                    <button class="role-badge-btn" data-role="outlet" id="btnRoleOutlet" title="Validasi Terima / Tolak Fisik Barang (Auto-Ceklis Z)">
                         <i class="fa-solid fa-shop"></i> Outlet PIC
                     </button>
                 </div>
@@ -60,7 +60,7 @@
         <div class="role-banner-card admin-banner" id="roleBannerCard">
             <div>
                 <h2 class="banner-title-text" id="bannerTitle"><i class="fa-solid fa-shield-halved" style="color: var(--indigo);"></i> Mode Tampilan: Admin GA (Pusat Monitoring Semua Proses)</h2>
-                <p class="banner-subtitle-text" id="bannerDesc">Pusat Monitoring menampilkan seluruh proses lifecycle aset (Pengajuan RAB ➔ Check Gudang ➔ Procurement ➔ Logistik ➔ Outlet).</p>
+                <p class="banner-subtitle-text" id="bannerDesc">State Machine Ceklis (X: Ceklis Atasan ➔ Procurement, Y: Mapping ➔ Ready Antar, Z: Pengiriman ➔ Auto-Ceklis saat Outlet Terima).</p>
             </div>
             <div style="display: flex; gap: 0.6rem;">
                 <button class="btn btn-subtle" id="btnResetData"><i class="fa-solid fa-rotate-left"></i> Reset Demo</button>
@@ -72,33 +72,33 @@
         <div class="process-pipeline-card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem;">
                 <h3 style="font-size: 0.95rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
-                    <i class="fa-solid fa-diagram-next" style="color: var(--primary);"></i> Alur 5-Stage Process Monitoring Aset
+                    <i class="fa-solid fa-diagram-next" style="color: var(--primary);"></i> Alur Status Monitoring Aset Berdasarkan Kolom X, Y, Z Spreadsheet
                 </h3>
                 <span style="font-size: 0.75rem; color: var(--text-muted);">Klik stage untuk memfilter tampilan</span>
             </div>
             <div class="pipeline-grid">
-                <div class="pipeline-step-box" data-stage="1" id="pipeStage1">
-                    <div class="pipeline-step-tag">STAGE 1</div>
+                <div class="pipeline-step-box" data-stage="1" id="pipeStage1" title="Kolom X, Y, Z Belum Ceklis">
+                    <div class="pipeline-step-tag">STAGE 1 (X,Y,Z FALSE)</div>
                     <div class="pipeline-step-title">Pengajuan RAB</div>
                     <div class="pipeline-step-count" id="countPipe1">0 Item</div>
                 </div>
-                <div class="pipeline-step-box" data-stage="2" id="pipeStage2">
-                    <div class="pipeline-step-tag">STAGE 2</div>
-                    <div class="pipeline-step-title">Ready Gudang</div>
-                    <div class="pipeline-step-count" id="countPipe2">0 Item</div>
-                </div>
-                <div class="pipeline-step-box" data-stage="3" id="pipeStage3">
-                    <div class="pipeline-step-tag">STAGE 3</div>
+                <div class="pipeline-step-box" data-stage="3" id="pipeStage3" title="Kolom X Ceklis Atasan">
+                    <div class="pipeline-step-tag">STAGE 3 (KOLOM X)</div>
                     <div class="pipeline-step-title">Procurement PO</div>
                     <div class="pipeline-step-count" id="countPipe3">0 Item</div>
                 </div>
-                <div class="pipeline-step-box" data-stage="4" id="pipeStage4">
-                    <div class="pipeline-step-tag">STAGE 4</div>
-                    <div class="pipeline-step-title">Pengiriman Logistik</div>
+                <div class="pipeline-step-box" data-stage="2" id="pipeStage2" title="Kolom Y Mapping">
+                    <div class="pipeline-step-tag">STAGE 2 (KOLOM Y)</div>
+                    <div class="pipeline-step-title">Ready Antar</div>
+                    <div class="pipeline-step-count" id="countPipe2">0 Item</div>
+                </div>
+                <div class="pipeline-step-box" data-stage="4" id="pipeStage4" title="Dalam Pengiriman">
+                    <div class="pipeline-step-tag">STAGE 4 (LOGISTIK)</div>
+                    <div class="pipeline-step-title">Dalam Pengiriman</div>
                     <div class="pipeline-step-count" id="countPipe4">0 Item</div>
                 </div>
-                <div class="pipeline-step-box" data-stage="5" id="pipeStage5">
-                    <div class="pipeline-step-tag">STAGE 5</div>
+                <div class="pipeline-step-box" data-stage="5" id="pipeStage5" title="Kolom Z Auto-Ceklis saat Outlet Terima">
+                    <div class="pipeline-step-tag">STAGE 5 (KOLOM Z AUTO)</div>
                     <div class="pipeline-step-title">Validasi Outlet</div>
                     <div class="pipeline-step-count" id="countPipe5">0 Item</div>
                 </div>
@@ -120,21 +120,21 @@
             </div>
 
             <div class="stat-card card-emerald">
-                <div class="stat-title">Item Valid & Diterima</div>
+                <div class="stat-title">Kolom Z Auto-Ceklis (Diterima)</div>
                 <div class="stat-number" id="kpiReceived" style="color: var(--emerald);">0</div>
                 <div class="stat-subtitle">Sesuai Fisik Outlet</div>
             </div>
 
             <div class="stat-card card-amber">
-                <div class="stat-title">Dalam Pengiriman Logistik</div>
+                <div class="stat-title">Kolom Y Ceklis (Ready Antar)</div>
                 <div class="stat-number" id="kpiInTransit" style="color: var(--amber);">0</div>
-                <div class="stat-subtitle">Menunggu Check Outlet</div>
+                <div class="stat-subtitle">Siap Antar / Di Jalan</div>
             </div>
 
             <div class="stat-card card-rose">
                 <div class="stat-title">Ditolak Outlet (Perlu Revisi)</div>
                 <div class="stat-number" id="kpiRejected" style="color: var(--rose);">0</div>
-                <div class="stat-subtitle">Validasi Dua Arah Mismatch</div>
+                <div class="stat-subtitle">Kolom Z Unchecked</div>
             </div>
         </section>
 
@@ -153,9 +153,9 @@
             <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
                 <select id="filterSlaSelect" class="select-filter">
                     <option value="" selected>Semua Status Validasi</option>
-                    <option value="rejected">❌ Ditolak Outlet (Perlu Revisi Logistik)</option>
-                    <option value="in_transit">🚚 Menunggu Konfirmasi Outlet</option>
-                    <option value="success">✅ Valid & Diterima Outlet (100%)</option>
+                    <option value="rejected">❌ Ditolak Outlet (Kolom Z Unchecked)</option>
+                    <option value="in_transit">🚚 Ready Antar (Kolom Y Checked)</option>
+                    <option value="success">✅ Kolom Z Auto-Ceklis (100% Terima)</option>
                 </select>
                 <button class="btn btn-subtle" id="btnExportCSV"><i class="fa-solid fa-download"></i> Ekspor CSV</button>
             </div>
@@ -185,11 +185,11 @@
                 <thead>
                     <tr>
                         <th>Area</th>
-                        <th>Outlet & No. RAB</th>
-                        <th>Tgl Pengajuan (Kolom B)</th>
+                        <th>Outlet & RAB</th>
+                        <th>Tgl Pengajuan</th>
                         <th>Item Aset</th>
-                        <th>Qty Order</th>
-                        <th>Qty Logistik</th>
+                        <th>Ceklis (X, Y, Z)</th>
+                        <th>Qty Order/Logistik</th>
                         <th>Status Process</th>
                         <th>Penerima / PIC</th>
                         <th>Catatan Logistik / Outlet</th>
@@ -205,7 +205,7 @@
 
     <!-- BATCH DIALOG MODAL FOR LOGISTIK & ADMIN GA -->
     <div class="modal-backdrop" id="outletBatchModal">
-        <div class="modal-dialog-card" style="max-width: 1140px;">
+        <div class="modal-dialog-card" style="max-width: 1180px;">
             <div class="dialog-header">
                 <div>
                     <h2 class="dialog-title" id="modalBatchOutletTitle">Warung Nini Kisamaun</h2>
@@ -230,12 +230,13 @@
                 <table class="modal-table">
                     <thead>
                         <tr>
-                            <th style="width: 26%;">NAMA ITEM ASET</th>
+                            <th style="width: 24%;">NAMA ITEM ASET</th>
+                            <th style="width: 16%; text-align: center;">CEKLIS (X, Y, Z)</th>
                             <th style="width: 8%; text-align: center;">QTY ORDER</th>
-                            <th style="width: 10%; text-align: center;">QTY DIKIRIM</th>
-                            <th style="width: 20%;">STATUS PENGIRIMAN</th>
-                            <th style="width: 18%;">PENERIMA / PIC LOKASI</th>
-                            <th style="width: 18%;">KETERANGAN LOGISTIK</th>
+                            <th style="width: 9%; text-align: center;">QTY DIKIRIM</th>
+                            <th style="width: 16%;">STATUS PENGIRIMAN</th>
+                            <th style="width: 14%;">PENERIMA / PIC</th>
+                            <th style="width: 13%;">KETERANGAN LOGISTIK</th>
                         </tr>
                     </thead>
                     <tbody id="modalBatchTableBody">
@@ -253,11 +254,11 @@
 
     <!-- OUTLET INSPECTION MODAL -->
     <div class="modal-backdrop" id="outletInspectionModal">
-        <div class="modal-dialog-card" style="max-width: 980px;">
+        <div class="modal-dialog-card" style="max-width: 1040px;">
             <div class="dialog-header" style="background: #ecfdf5;">
                 <div>
                     <h2 class="dialog-title" style="color: #047857;" id="modalOutletInspectionTitle">Konfirmasi Penerimaan Aset Physical Outlet</h2>
-                    <p style="font-size: 0.8rem; color: #059669; margin-top: 0.2rem;">Cocokkan fisik barang di outlet dengan data yang diketik oleh Tim Logistik.</p>
+                    <p style="font-size: 0.8rem; color: #059669; margin-top: 0.2rem;">Saat PIC Outlet klik "Terima", <b>Kolom Z (Pengiriman Aset) otomatis ter-checklist (TRUE)</b>!</p>
                 </div>
                 <button class="dialog-close-btn" id="btnCloseInspectionModal"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -274,12 +275,13 @@
                 <table class="modal-table">
                     <thead>
                         <tr>
-                            <th style="width: 25%;">ITEM ASET</th>
-                            <th style="width: 8%; text-align: center;">QTY ORDER</th>
-                            <th style="width: 10%; text-align: center;">QTY LOGISTIK</th>
-                            <th style="width: 18%;">PENERIMA / PIC</th>
-                            <th style="width: 18%;">KETERANGAN LOGISTIK</th>
-                            <th style="width: 21%; text-align: center;">AKSI VALIDASI</th>
+                            <th style="width: 23%;">ITEM ASET</th>
+                            <th style="width: 15%; text-align: center;">KOLOM (X, Y, Z)</th>
+                            <th style="width: 7%; text-align: center;">ORDER</th>
+                            <th style="width: 8%; text-align: center;">LOGISTIK</th>
+                            <th style="width: 15%;">PENERIMA / PIC</th>
+                            <th style="width: 14%;">KETERANGAN</th>
+                            <th style="width: 18%; text-align: center;">AKSI VALIDASI</th>
                         </tr>
                     </thead>
                     <tbody id="modalInspectionTableBody">
@@ -300,7 +302,7 @@
             <div class="dialog-header" style="background: #fef2f2;">
                 <div>
                     <h3 style="color: #dc2626; font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-triangle-exclamation"></i> Tolak Barang ke Logistik</h3>
-                    <p style="font-size: 0.75rem; color: #b91c1c; margin-top: 0.2rem;">Item akan dikembalikan ke Logistik untuk direvisi.</p>
+                    <p style="font-size: 0.75rem; color: #b91c1c; margin-top: 0.2rem;">Item akan dikembalikan ke Logistik (Kolom Z Unchecked).</p>
                 </div>
             </div>
             <div style="padding: 1.5rem;">

@@ -1,10 +1,16 @@
 /**
- * New Outlet Asset Monitoring System - Real-time Continuous Status Sync Engine
+ * New Outlet Asset Monitoring System - Checkbox X, Y, Z State Machine Engine
+ * 
+ * Rules:
+ * 1. If X, Y, Z not checked -> Status: "📝 Pengajuan RAB" (Stage 1)
+ * 2. If Kolom X checked (Ceklis Atasan) -> Status: "🛒 Procurement PO" (Stage 3)
+ * 3. If Kolom Y checked (Mapping) -> Status: "🚚 Ready Antar" (Stage 2/4)
+ * 4. If Outlet PIC clicks "Terima Barang" -> Kolom Z (Pengiriman Aset) AUTOMATICALLY checked -> Status: "✅ Valid & Diterima Outlet" (Stage 5)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     // Clear old localStorage keys to ensure clean sync
-    ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12", "NEW_OUTLET_TGL_PENGAJUAN_V13", "NEW_OUTLET_FORMATTED_DATE_V14"].forEach(k => {
+    ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12", "NEW_OUTLET_TGL_PENGAJUAN_V13", "NEW_OUTLET_FORMATTED_DATE_V14", "NEW_OUTLET_CONTINUOUS_SYNC_V15"].forEach(k => {
         try { localStorage.removeItem(k); } catch (e) {}
     });
 
@@ -83,6 +89,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (el) el.textContent = value;
     }
 
+    function renderCheckboxXYZBadges(item) {
+        return `
+            <div class="checkbox-xyz-group">
+                <span class="checkbox-badge-item ${item.ceklisX ? 'active-x' : ''}" title="Kolom X: Ceklis Atasan (Procurement PO)">
+                    ${item.ceklisX ? '☑' : '☐'} X: Atasan
+                </span>
+                <span class="checkbox-badge-item ${item.ceklisY ? 'active-y' : ''}" title="Kolom Y: Mapping (Ready Antar)">
+                    ${item.ceklisY ? '☑' : '☐'} Y: Mapping
+                </span>
+                <span class="checkbox-badge-item ${item.ceklisZ ? 'active-z' : ''}" title="Kolom Z: Pengiriman Aset (Diterima Outlet)">
+                    ${item.ceklisZ ? '☑' : '☐'} Z: Kirim
+                </span>
+            </div>
+        `;
+    }
+
     function init() {
         checkUrlAdminParams();
         setupSecretAdminTriggers();
@@ -92,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupRealtimeSync() {
-        // Auto sync state across windows and custom events
         window.addEventListener('storage', () => {
             if (window.dataManager) {
                 window.dataManager.assets = window.dataManager.loadLocalAssets();
@@ -339,21 +360,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (roleBannerCard) roleBannerCard.className = 'role-banner-card admin-banner';
             if (bannerTitle) bannerTitle.innerHTML = '<i class="fa-solid fa-shield-halved" style="color: var(--indigo);"></i> Mode Tampilan: Admin GA (Pusat Monitoring Semua Proses)';
-            if (bannerDesc) bannerDesc.textContent = 'Pusat Monitoring menampilkan seluruh proses lifecycle aset (Pengajuan RAB ➔ Check Gudang ➔ Procurement ➔ Logistik ➔ Outlet).';
+            if (bannerDesc) bannerDesc.textContent = 'State Machine Ceklis (X: Ceklis Atasan ➔ Procurement, Y: Mapping ➔ Ready Antar, Z: Pengiriman ➔ Auto-Ceklis saat Outlet Terima).';
             if (monitoringTabBar) monitoringTabBar.style.display = 'flex';
         } else if (targetRole === 'logistik') {
             if (btnRoleAdminGA) btnRoleAdminGA.classList.add('hidden-role');
             if (btnRoleLogistik) btnRoleLogistik.className = 'role-badge-btn active-logistik';
             if (roleBannerCard) roleBannerCard.className = 'role-banner-card logistik-banner';
             if (bannerTitle) bannerTitle.innerHTML = '<i class="fa-solid fa-truck-ramp-box" style="color: var(--amber);"></i> Mode Tampilan: Tim Logistik (Gudang)';
-            if (bannerDesc) bannerDesc.textContent = 'Mode Logistik terbatas hanya untuk mengetik Qty Dikirim, Penerima/PIC, dan Keterangan. Status otomatis update realtime.';
+            if (bannerDesc) bannerDesc.textContent = 'Mode Logistik: Centang Kolom X (Ceklis Atasan) untuk Procurement PO, Kolom Y (Mapping) untuk Ready Antar.';
             if (monitoringTabBar) monitoringTabBar.style.display = 'none';
         } else if (targetRole === 'outlet') {
             if (btnRoleAdminGA) btnRoleAdminGA.classList.add('hidden-role');
             if (btnRoleOutlet) btnRoleOutlet.className = 'role-badge-btn active-outlet';
             if (roleBannerCard) roleBannerCard.className = 'role-banner-card outlet-banner';
             if (bannerTitle) bannerTitle.innerHTML = '<i class="fa-solid fa-shop" style="color: var(--emerald);"></i> Mode Tampilan: Outlet PIC (Penerima Barang)';
-            if (bannerDesc) bannerDesc.textContent = 'Mode Outlet khusus memverifikasi fisik barang. Klik "Terima Barang" jika fisik sesuai, atau "Tolak Barang" jika quantity tidak sesuai. Status otomatis update realtime.';
+            if (bannerDesc) bannerDesc.textContent = 'Mode Outlet PIC: Saat Anda klik "Terima Barang", Kolom Z (Pengiriman Aset) AUTOMATICALLY TER-CHECKLIST (TRUE)!';
             if (monitoringTabBar) monitoringTabBar.style.display = 'none';
         }
 
@@ -449,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (state.role === 'outlet') {
                 actionBtnMarkup = `
                     <button class="btn-action-update" style="border-color: #10b981; color: #047857; background: #ecfdf5;" data-outlet-key="${o.key.replace(/"/g, '&quot;')}">
-                        Validasi <i class="fa-solid fa-clipboard-check"></i>
+                        Validasi (Auto Z) <i class="fa-solid fa-clipboard-check"></i>
                     </button>
                 `;
             } else {
@@ -460,7 +481,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
-            // Main Row — Display TGL PENGAJUAN (KOLOM B) prominently!
             html += `
                 <tr class="outlet-main-row" data-outlet-key="${o.key.replace(/"/g, '&quot;')}">
                     <!-- NAMA OUTLET / DETAIL -->
@@ -528,14 +548,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     let stgTag = `<span class="badge-sla badge-sla-normal">Stage ${i.stage}: ${i.statusPengiriman}</span>`;
                     if (i.validationStatus === 'REJECTED') {
                         stgTag = `<span class="badge-sla badge-sla-alert"><i class="fa-solid fa-triangle-exclamation"></i> Ditolak Outlet</span>`;
-                    } else if (i.validationStatus === 'ACCEPTED') {
-                        stgTag = `<span class="badge-sla badge-sla-success"><i class="fa-solid fa-check"></i> Valid & Diterima</span>`;
+                    } else if (i.validationStatus === 'ACCEPTED' || i.ceklisZ) {
+                        stgTag = `<span class="badge-sla badge-sla-success"><i class="fa-solid fa-check"></i> Valid & Diterima (Z ☑)</span>`;
                     }
 
                     return `
                         <tr>
                             <td style="font-weight:700; color:#0f172a; padding:0.6rem 1rem;">${i.item}</td>
-                            <td style="font-size:0.75rem; color:#64748b; padding:0.6rem 1rem;">${i.spesifikasi || '-'}</td>
+                            <td style="padding:0.6rem 1rem; text-align:center;">${renderCheckboxXYZBadges(i)}</td>
                             <td style="text-align:center; font-weight:800; padding:0.6rem 1rem;">${i.qty}</td>
                             <td style="text-align:center; font-weight:800; color:#2563eb; padding:0.6rem 1rem;">${i.qtyDiterima}</td>
                             <td style="padding:0.6rem 1rem;">${stgTag}</td>
@@ -552,7 +572,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div style="font-size:0.85rem; font-weight:800; color:#0f172a; margin-bottom:0.75rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
                                     <span><i class="fa-solid fa-list" style="color:var(--primary);"></i> Rincian Aset Item (${displayedItems.length} / ${o.total} Item) — ${o.name} [RAB: ${o.rabCode} • Tgl Pengajuan: ${o.tglPengajuan}]</span>
                                     
-                                    <!-- Inner Subtable Item Search Input -->
                                     <div style="position:relative;">
                                         <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:0.65rem; top:50%; transform:translateY(-50%); color:#94a3b8; font-size:0.75rem;"></i>
                                         <input type="text" class="subtable-search-input" data-outlet-key="${o.key.replace(/"/g, '&quot;')}" value="${subSearchVal}" placeholder="Cari item/penerima di RAB ini...">
@@ -562,7 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <thead>
                                         <tr style="background:#f1f5f9; font-size:0.7rem; color:#475569; text-transform:uppercase; font-weight:800;">
                                             <th style="padding:0.6rem 1rem;">NAMA ITEM</th>
-                                            <th style="padding:0.6rem 1rem;">SPESIFIKASI</th>
+                                            <th style="padding:0.6rem 1rem; text-align:center;">CEKLIS (X, Y, Z)</th>
                                             <th style="padding:0.6rem 1rem; text-align:center;">QTY ORDER</th>
                                             <th style="padding:0.6rem 1rem; text-align:center;">QTY DITERIMA</th>
                                             <th style="padding:0.6rem 1rem;">STATUS PROSES</th>
@@ -620,8 +639,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let stageBadge = `<span class="badge-sla badge-sla-normal">Stage ${a.stage}: ${a.statusPengiriman}</span>`;
                 if (a.validationStatus === 'REJECTED') {
                     stageBadge = `<span class="badge-sla badge-sla-alert"><i class="fa-solid fa-triangle-exclamation"></i> Ditolak Outlet</span>`;
-                } else if (a.validationStatus === 'ACCEPTED') {
-                    stageBadge = `<span class="badge-sla badge-sla-success"><i class="fa-solid fa-check"></i> Valid & Diterima</span>`;
+                } else if (a.validationStatus === 'ACCEPTED' || a.ceklisZ) {
+                    stageBadge = `<span class="badge-sla badge-sla-success"><i class="fa-solid fa-check"></i> Valid & Diterima (Z ☑)</span>`;
                 }
 
                 return `
@@ -630,8 +649,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td style="font-weight: 700; color: #0f172a;">${a.outlet} <br><span class="pill-rab" style="font-size:0.65rem;">RAB: ${a.rabCode}</span></td>
                         <td style="font-weight: 800; color: #2563eb;"><i class="fa-regular fa-calendar-days"></i> ${a.tglPengajuan}</td>
                         <td style="font-weight: 700; color: #0f172a;">${a.item}</td>
-                        <td style="text-align: center; font-weight: 800;">${a.qty}</td>
-                        <td style="text-align: center; font-weight: 800; color: #059669;">${a.qtyDiterima}</td>
+                        <td style="text-align: center;">${renderCheckboxXYZBadges(a)}</td>
+                        <td style="text-align: center; font-weight: 800;">${a.qty} / <span style="color:#059669;">${a.qtyDiterima}</span></td>
                         <td>${stageBadge}</td>
                         <td style="font-weight: 700; color: #334155;"><i class="fa-solid fa-user-tag" style="color:#2563eb; font-size:0.75rem;"></i> ${a.picPenerima || '-'}</td>
                         <td style="font-size: 0.8rem; color: #475569;">${a.alasanPenolakan ? '<b style="color:#dc2626;">Tolak:</b> ' + a.alasanPenolakan : (a.keterangan || '-')}</td>
@@ -672,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (items.length === 0) {
-            modalBatchTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:#94a3b8;">Tidak ada item yang cocok dengan kata kunci pencarian.</td></tr>`;
+            modalBatchTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2rem; color:#94a3b8;">Tidak ada item yang cocok dengan kata kunci pencarian.</td></tr>`;
             return;
         }
 
@@ -683,9 +702,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return `
                 <tr data-asset-id="${item.id}" style="${rowStyle}">
                     <td>
-                        <div style="font-weight: 700; color: #0f172a; font-size: 0.9rem;">${item.item}</div>
-                        <div style="font-size: 0.75rem; color: #64748b;">${item.spesifikasi || '-'}</div>
-                        ${isRejected ? `<div style="font-size: 0.75rem; color: #dc2626; font-weight: 700; margin-top: 0.2rem;"><i class="fa-solid fa-triangle-exclamation"></i> Alasan Ditolak Outlet: "${item.alasanPenolakan}"</div>` : ''}
+                        <div style="font-weight: 700; color: #0f172a; font-size: 0.875rem;">${item.item}</div>
+                        <div style="font-size: 0.725rem; color: #64748b;">${item.spesifikasi || '-'}</div>
+                        ${isRejected ? `<div style="font-size: 0.725rem; color: #dc2626; font-weight: 700; margin-top: 0.2rem;"><i class="fa-solid fa-triangle-exclamation"></i> Alasan Ditolak Outlet: "${item.alasanPenolakan}"</div>` : ''}
+                    </td>
+                    <td style="text-align: center;">
+                        <div class="checkbox-xyz-group" style="flex-direction:column; gap:0.2rem; align-items:flex-start;">
+                            <label class="checkbox-badge-item ${item.ceklisX ? 'active-x' : ''}" style="cursor:pointer; width:100%;">
+                                <input type="checkbox" class="chk-x" ${item.ceklisX ? 'checked' : ''}> X: Ceklis Atasan
+                            </label>
+                            <label class="checkbox-badge-item ${item.ceklisY ? 'active-y' : ''}" style="cursor:pointer; width:100%;">
+                                <input type="checkbox" class="chk-y" ${item.ceklisY ? 'checked' : ''}> Y: Mapping
+                            </label>
+                            <label class="checkbox-badge-item ${item.ceklisZ ? 'active-z' : ''}" style="cursor:pointer; width:100%;">
+                                <input type="checkbox" class="chk-z" ${item.ceklisZ ? 'checked' : ''}> Z: Pengiriman
+                            </label>
+                        </div>
                     </td>
                     <td style="text-align: center; font-weight: 800; color: #334155;">${item.qty}</td>
                     <td style="text-align: center;">
@@ -693,15 +725,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                     <td>
                         <select class="modal-select-status">
-                            <option value="📝 Pengajuan RAB" ${parseInt(item.stage) === 1 ? 'selected' : ''}>📝 Pengajuan RAB</option>
-                            <option value="📦 Ready Gudang" ${parseInt(item.stage) === 2 ? 'selected' : ''}>📦 Ready Gudang</option>
-                            <option value="🛒 Procurement PO" ${parseInt(item.stage) === 3 ? 'selected' : ''}>🛒 Procurement PO</option>
-                            <option value="🚚 Dalam Pengiriman" ${parseInt(item.stage) === 4 || isRejected ? 'selected' : ''}>🚚 Dalam Pengiriman</option>
-                            <option value="✅ Valid & Diterima" ${parseInt(item.stage) === 5 ? 'selected' : ''}>✅ Valid & Diterima</option>
+                            <option value="📝 Pengajuan RAB" ${(!item.ceklisX && !item.ceklisY && !item.ceklisZ) ? 'selected' : ''}>📝 Pengajuan RAB (X,Y,Z FALSE)</option>
+                            <option value="🛒 Procurement PO" ${(item.ceklisX && !item.ceklisY && !item.ceklisZ) ? 'selected' : ''}>🛒 Procurement PO (Kolom X)</option>
+                            <option value="🚚 Ready Antar" ${(item.ceklisY && !item.ceklisZ) ? 'selected' : ''}>🚚 Ready Antar (Kolom Y)</option>
+                            <option value="✅ Valid & Diterima" ${item.ceklisZ ? 'selected' : ''}>✅ Valid & Diterima (Kolom Z)</option>
                         </select>
                     </td>
                     <td>
-                        <input type="text" class="modal-input-pic" placeholder="Ketik nama penerima/PIC..." value="${item.picPenerima || ''}" style="width:100%; padding:0.55rem 0.85rem; border:1px solid #cbd5e1; border-radius:8px; font-size:0.85rem; font-weight:600; color:#0f172a;">
+                        <input type="text" class="modal-input-pic" placeholder="Ketik nama penerima/PIC..." value="${item.picPenerima || ''}" style="width:100%; padding:0.5rem 0.65rem; border:1px solid #cbd5e1; border-radius:8px; font-size:0.8rem; font-weight:600; color:#0f172a;">
                     </td>
                     <td>
                         <input type="text" class="modal-input-note" placeholder="Ketik keterangan logistik..." value="${item.keterangan || ''}">
@@ -721,6 +752,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         rows.forEach(tr => {
             const id = tr.dataset.assetId;
+            const chkX = tr.querySelector('.chk-x');
+            const chkY = tr.querySelector('.chk-y');
+            const chkZ = tr.querySelector('.chk-z');
             const qtyRecInput = tr.querySelector('.modal-input-qty');
             const statusSelect = tr.querySelector('.modal-select-status');
             const picInput = tr.querySelector('.modal-input-pic');
@@ -729,6 +763,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (id && qtyRecInput && statusSelect) {
                 updates.push({
                     id,
+                    ceklisX: chkX ? chkX.checked : false,
+                    ceklisY: chkY ? chkY.checked : false,
+                    ceklisZ: chkZ ? chkZ.checked : false,
                     qtyDiterima: qtyRecInput.value,
                     statusPengiriman: statusSelect.value,
                     picPenerima: picInput ? picInput.value.trim() : '',
@@ -739,7 +776,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.dataManager.batchUpdateLogistics(state.activeOutletKey, updates);
         closeBatchModal();
-        showToast(`Status Logistik & Qty untuk ${updates.length} item berhasil diperbarui!`, "success");
+        showToast(`Status Ceklis X, Y, Z & Logistik untuk ${updates.length} item berhasil disimpan!`, "success");
         render();
     }
 
@@ -770,22 +807,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (items.length === 0) {
-            modalInspectionTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:#94a3b8;">Tidak ada item yang cocok dengan kata kunci pencarian.</td></tr>`;
+            modalInspectionTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2rem; color:#94a3b8;">Tidak ada item yang cocok dengan kata kunci pencarian.</td></tr>`;
             return;
         }
 
         modalInspectionTableBody.innerHTML = items.map(item => {
             let actionMarkup = '';
 
-            if (item.validationStatus === 'ACCEPTED') {
-                actionMarkup = `<span style="color: #059669; font-weight: 800; font-size: 0.85rem;"><i class="fa-solid fa-circle-check"></i> ✅ Diterima (${item.picPenerima})</span>`;
+            if (item.validationStatus === 'ACCEPTED' || item.ceklisZ) {
+                actionMarkup = `<span style="color: #059669; font-weight: 800; font-size: 0.85rem;"><i class="fa-solid fa-circle-check"></i> ✅ Kolom Z Auto-Ceklis (${item.picPenerima})</span>`;
             } else if (item.validationStatus === 'REJECTED') {
-                actionMarkup = `<span style="color: #dc2626; font-weight: 800; font-size: 0.8rem;"><i class="fa-solid fa-triangle-exclamation"></i> ❌ Ditolak (Di-revisi Logistik)</span>`;
+                actionMarkup = `<span style="color: #dc2626; font-weight: 800; font-size: 0.8rem;"><i class="fa-solid fa-triangle-exclamation"></i> ❌ Ditolak (Kolom Z Unchecked)</span>`;
             } else {
                 actionMarkup = `
                     <div style="display: flex; gap: 0.4rem; justify-content: center;">
-                        <button class="btn-accept-item" data-id="${item.id}">
-                            <i class="fa-solid fa-check"></i> Terima
+                        <button class="btn-accept-item" data-id="${item.id}" title="Klik Terima -> Auto Checklist Kolom Z">
+                            <i class="fa-solid fa-check"></i> Terima (Ceklis Z)
                         </button>
                         <button class="btn-reject-item" data-id="${item.id}" data-name="${item.item.replace(/"/g, '&quot;')}">
                             <i class="fa-solid fa-xmark"></i> Tolak
@@ -800,6 +837,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div style="font-weight: 700; color: #0f172a;">${item.item}</div>
                         <div style="font-size: 0.75rem; color: #64748b;">${item.spesifikasi || '-'}</div>
                     </td>
+                    <td style="text-align: center;">${renderCheckboxXYZBadges(item)}</td>
                     <td style="text-align: center; font-weight: 800;">${item.qty}</td>
                     <td style="text-align: center; font-weight: 800; color: #2563eb;">${item.qtyDiterima}</td>
                     <td style="font-weight: 700; color: #334155;"><i class="fa-solid fa-user-tag" style="color:#2563eb; font-size:0.75rem;"></i> ${item.picPenerima || 'Belum diisi'}</td>
@@ -823,7 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (pic === null) return;
 
                 const updated = window.dataManager.outletAcceptItem(assetId, pic);
-                showToast(`Status "${updated.item}" diperbarui: ✅ Valid & Diterima Outlet!`, "success");
+                showToast(`Status "${updated.item}" DITERIMA! Kolom Z (Pengiriman Aset) AUTOMATICALLY TER-CHECKLIST (TRUE)!`, "success");
                 renderInspectionModalTable();
                 render();
                 return;
@@ -857,7 +895,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const updated = window.dataManager.outletRejectItem(id, pic, reason);
         closeRejectionModal();
-        showToast(`Status "${updated.item}" diperbarui: ❌ Ditolak Outlet (Dikembalikan ke Logistik untuk Direvisi)!`, "alert");
+        showToast(`Status "${updated.item}" DITOLAK! Kolom Z Unchecked (Dikembalikan ke Logistik untuk Direvisi).`, "alert");
         renderInspectionModalTable();
         render();
     }
@@ -881,18 +919,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function exportCSV() {
         const outlets = window.dataManager.getOutlets(state.selectedArea);
-        let csvContent = "data:text/csv;charset=utf-8,Outlet,Area,NoRAB,TglPengajuan,Item,QtyOrder,QtyLogistik,StatusValidasi,PenerimaPIC,KetLogistik,AlasanTolakOutlet\n";
+        let csvContent = "data:text/csv;charset=utf-8,Outlet,Area,NoRAB,TglPengajuan,Item,CeklisX,CeklisY,CeklisZ,QtyOrder,QtyLogistik,StatusValidasi,PenerimaPIC,KetLogistik,AlasanTolakOutlet\n";
 
         outlets.forEach(o => {
             o.items.forEach(i => {
-                csvContent += `"${o.name}","${o.area}","${o.rabCode}","${i.tglPengajuan}","${i.item}","${i.qty}","${i.qtyDiterima}","${i.statusPengiriman}","${(i.picPenerima||'').replace(/"/g, '""')}","${(i.keterangan||'').replace(/"/g, '""')}","${(i.alasanPenolakan||'').replace(/"/g, '""')}"\n`;
+                csvContent += `"${o.name}","${o.area}","${o.rabCode}","${i.tglPengajuan}","${i.item}","${i.ceklisX}","${i.ceklisY}","${i.ceklisZ}","${i.qty}","${i.qtyDiterima}","${i.statusPengiriman}","${(i.picPenerima||'').replace(/"/g, '""')}","${(i.keterangan||'').replace(/"/g, '""')}","${(i.alasanPenolakan||'').replace(/"/g, '""')}"\n`;
             });
         });
 
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `Enterprise_Sistemasi_Aset_TglPengajuan_${state.selectedArea}_${new Date().toISOString().split('T')[0]}.csv`);
+        link.setAttribute("download", `Enterprise_Sistemasi_Aset_Ceklis_XYZ_${state.selectedArea}_${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
