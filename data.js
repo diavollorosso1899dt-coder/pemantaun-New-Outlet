@@ -1,8 +1,10 @@
 /**
- * New Outlet Asset Monitoring System - 3 Checkbox XYZ Rule Engine
- * X = Ceklis Atasan (Procurement PO)
- * Y = Ready Gudang / Ready Antar
- * Z = Diterima Outlet (Physical Validation)
+ * New Outlet Asset Monitoring System - Precise XYZ Checkbox Engine V17
+ * Strict User Rules:
+ * 1. X=false, Y=false, Z=false -> 📝 Pengajuan RAB (Stage 1)
+ * 2. X=true, Y=false, Z=false -> 🛒 Procurement PO (Stage 3) (Matches Row 1155 in Spreadsheet!)
+ * 3. Status "Ready Antar / Ready Gudang" -> Otomatis Y=true (Stage 2)
+ * 4. Outlet PIC Klik "Terima Barang" -> Otomatis Z=true (Stage 5)
  */
 
 const INITIAL_ASSETS = [
@@ -20,10 +22,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "04/03/2026",
@@ -31,7 +33,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-3",
@@ -155,10 +157,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -166,7 +168,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-9",
@@ -371,10 +373,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -382,7 +384,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-25",
@@ -452,10 +454,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -463,7 +465,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-28",
@@ -506,10 +508,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -517,7 +519,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-36",
@@ -560,10 +562,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "04/03/2026",
@@ -571,7 +573,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-38",
@@ -614,10 +616,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -625,7 +627,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-45",
@@ -992,10 +994,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1003,7 +1005,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-91",
@@ -1046,10 +1048,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1057,7 +1059,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-94",
@@ -1154,10 +1156,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1165,7 +1167,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-99",
@@ -1262,10 +1264,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1273,7 +1275,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-103",
@@ -1343,10 +1345,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1354,7 +1356,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-115",
@@ -1451,10 +1453,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1462,7 +1464,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-129",
@@ -1613,10 +1615,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1624,7 +1626,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-148",
@@ -1856,10 +1858,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1867,7 +1869,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-172",
@@ -1883,10 +1885,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1894,7 +1896,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-177",
@@ -1910,10 +1912,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1921,7 +1923,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-182",
@@ -1937,10 +1939,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -1948,7 +1950,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-186",
@@ -2018,10 +2020,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -2029,7 +2031,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-194",
@@ -2207,10 +2209,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -2218,7 +2220,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-210",
@@ -2288,10 +2290,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -2299,7 +2301,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-215",
@@ -2423,10 +2425,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -2434,7 +2436,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-226",
@@ -2477,10 +2479,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -2488,7 +2490,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-231",
@@ -2585,10 +2587,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -2596,7 +2598,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-239",
@@ -2693,10 +2695,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -2704,7 +2706,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-243",
@@ -2855,10 +2857,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -2866,7 +2868,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-253",
@@ -3098,10 +3100,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -3109,7 +3111,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-274",
@@ -3152,10 +3154,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -3163,7 +3165,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-278",
@@ -3287,10 +3289,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -3298,7 +3300,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-283",
@@ -3530,10 +3532,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -3541,7 +3543,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-293",
@@ -3665,10 +3667,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -3676,7 +3678,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-298",
@@ -3908,10 +3910,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "04/03/2026",
@@ -3919,7 +3921,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-313",
@@ -4016,10 +4018,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -4027,7 +4029,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-318",
@@ -4178,10 +4180,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -4189,7 +4191,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-329",
@@ -4259,10 +4261,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -4270,7 +4272,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-335",
@@ -4340,10 +4342,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -4351,7 +4353,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-343",
@@ -4529,10 +4531,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -4540,7 +4542,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-358",
@@ -4772,10 +4774,10 @@ const INITIAL_ASSETS = [
     "qty": 600,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -4783,7 +4785,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-383",
@@ -4961,10 +4963,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -4972,7 +4974,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-410",
@@ -5042,10 +5044,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -5053,7 +5055,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-416",
@@ -5204,10 +5206,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -5215,7 +5217,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-437",
@@ -5231,10 +5233,10 @@ const INITIAL_ASSETS = [
     "qty": 8,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -5242,7 +5244,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-438",
@@ -5285,10 +5287,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -5296,7 +5298,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-446",
@@ -5393,10 +5395,10 @@ const INITIAL_ASSETS = [
     "qty": 20,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -5404,7 +5406,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-458",
@@ -5447,10 +5449,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -5458,7 +5460,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-465",
@@ -5636,10 +5638,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -5647,7 +5649,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-481",
@@ -5717,10 +5719,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -5728,7 +5730,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-491",
@@ -5906,10 +5908,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -5917,7 +5919,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-521",
@@ -5987,10 +5989,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -5998,7 +6000,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-528",
@@ -6176,10 +6178,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -6187,7 +6189,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-540",
@@ -6392,10 +6394,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -6403,7 +6405,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-565",
@@ -6500,10 +6502,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -6511,7 +6513,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-575",
@@ -6581,10 +6583,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -6592,7 +6594,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-579",
@@ -6662,10 +6664,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -6673,7 +6675,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-583",
@@ -6797,10 +6799,10 @@ const INITIAL_ASSETS = [
     "qty": 600,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -6808,7 +6810,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-588",
@@ -6986,10 +6988,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -6997,7 +6999,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-598",
@@ -7175,10 +7177,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -7186,7 +7188,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-618",
@@ -7256,10 +7258,10 @@ const INITIAL_ASSETS = [
     "qty": 48,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -7267,7 +7269,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-623",
@@ -7337,10 +7339,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -7348,7 +7350,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-629",
@@ -7445,10 +7447,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -7456,7 +7458,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-633",
@@ -7553,10 +7555,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -7564,7 +7566,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-638",
@@ -7688,10 +7690,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -7699,7 +7701,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-643",
@@ -7823,10 +7825,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -7834,7 +7836,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-648",
@@ -7958,10 +7960,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -7969,7 +7971,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-655",
@@ -8120,10 +8122,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -8131,7 +8133,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-663",
@@ -8255,10 +8257,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -8266,7 +8268,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-668",
@@ -8606,10 +8608,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -8617,7 +8619,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-689",
@@ -8714,10 +8716,10 @@ const INITIAL_ASSETS = [
     "qty": 9,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -8725,7 +8727,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-693",
@@ -8849,10 +8851,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -8860,7 +8862,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-698",
@@ -8984,10 +8986,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -8995,7 +8997,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-703",
@@ -9119,10 +9121,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -9130,7 +9132,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-709",
@@ -9227,10 +9229,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -9238,7 +9240,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-713",
@@ -9335,10 +9337,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -9346,7 +9348,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-718",
@@ -9470,10 +9472,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -9481,7 +9483,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-723",
@@ -9605,10 +9607,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -9616,7 +9618,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-728",
@@ -9740,10 +9742,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -9751,7 +9753,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-733",
@@ -9875,10 +9877,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -9886,7 +9888,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-738",
@@ -10010,10 +10012,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -10021,7 +10023,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-743",
@@ -10118,10 +10120,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -10129,7 +10131,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-748",
@@ -10253,10 +10255,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -10264,7 +10266,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-753",
@@ -10388,10 +10390,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -10399,7 +10401,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-758",
@@ -10523,10 +10525,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -10534,7 +10536,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-763",
@@ -10658,10 +10660,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -10669,7 +10671,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-768",
@@ -10793,10 +10795,10 @@ const INITIAL_ASSETS = [
     "qty": 16,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -10804,7 +10806,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-773",
@@ -10928,10 +10930,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -10939,7 +10941,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-778",
@@ -11063,10 +11065,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -11074,7 +11076,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-783",
@@ -11198,10 +11200,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -11209,7 +11211,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-788",
@@ -11333,10 +11335,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -11344,7 +11346,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-793",
@@ -11468,10 +11470,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -11479,7 +11481,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-798",
@@ -11576,10 +11578,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -11587,7 +11589,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-808",
@@ -11711,10 +11713,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -11722,7 +11724,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-813",
@@ -11846,10 +11848,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -11857,7 +11859,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-818",
@@ -11981,10 +11983,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -11992,7 +11994,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-823",
@@ -12224,10 +12226,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -12235,7 +12237,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-841",
@@ -12278,10 +12280,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -12289,7 +12291,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-843",
@@ -12413,10 +12415,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -12424,7 +12426,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-848",
@@ -12548,10 +12550,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -12559,7 +12561,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-855",
@@ -12710,10 +12712,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -12721,7 +12723,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-863",
@@ -12818,10 +12820,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -12829,7 +12831,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-869",
@@ -12899,10 +12901,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -12910,7 +12912,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-874",
@@ -13061,10 +13063,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -13072,7 +13074,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-883",
@@ -13196,10 +13198,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -13207,7 +13209,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-888",
@@ -13304,10 +13306,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -13315,7 +13317,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-895",
@@ -13358,10 +13360,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -13369,7 +13371,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-898",
@@ -13466,10 +13468,10 @@ const INITIAL_ASSETS = [
     "qty": 72,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -13477,7 +13479,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-903",
@@ -13655,10 +13657,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -13666,7 +13668,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-913",
@@ -13790,10 +13792,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -13801,7 +13803,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-918",
@@ -13925,10 +13927,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -13936,7 +13938,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-923",
@@ -14006,10 +14008,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -14017,7 +14019,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-929",
@@ -14114,10 +14116,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -14125,7 +14127,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-933",
@@ -14357,10 +14359,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -14368,7 +14370,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-943",
@@ -14492,10 +14494,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -14503,7 +14505,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-948",
@@ -14681,10 +14683,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -14692,7 +14694,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-965",
@@ -14870,10 +14872,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -14881,7 +14883,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-985",
@@ -14951,10 +14953,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -14962,7 +14964,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-988",
@@ -15032,10 +15034,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -15043,7 +15045,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-995",
@@ -15086,10 +15088,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -15097,7 +15099,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-998",
@@ -15275,10 +15277,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -15286,7 +15288,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1015",
@@ -15329,10 +15331,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -15340,7 +15342,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1025",
@@ -15464,10 +15466,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -15475,7 +15477,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1065",
@@ -15572,10 +15574,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -15583,7 +15585,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1083",
@@ -15680,10 +15682,10 @@ const INITIAL_ASSETS = [
     "qty": 8,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -15691,7 +15693,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1093",
@@ -15788,10 +15790,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -15799,7 +15801,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1101",
@@ -15896,10 +15898,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -15907,7 +15909,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1116",
@@ -16031,10 +16033,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -16042,7 +16044,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1129",
@@ -16085,10 +16087,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -16096,7 +16098,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1135",
@@ -16166,10 +16168,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -16177,7 +16179,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1138",
@@ -16274,10 +16276,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -16285,7 +16287,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1144",
@@ -16463,10 +16465,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -16474,7 +16476,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1166",
@@ -16598,10 +16600,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -16609,7 +16611,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1173",
@@ -16814,10 +16816,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -16825,7 +16827,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1188",
@@ -16976,10 +16978,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -16987,7 +16989,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1198",
@@ -17111,10 +17113,10 @@ const INITIAL_ASSETS = [
     "qty": 50,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -17122,7 +17124,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1203",
@@ -17246,10 +17248,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -17257,7 +17259,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1208",
@@ -17381,10 +17383,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -17392,7 +17394,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1213",
@@ -17516,10 +17518,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -17527,7 +17529,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1218",
@@ -17759,10 +17761,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -17770,7 +17772,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1228",
@@ -17894,10 +17896,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -17905,7 +17907,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1233",
@@ -18083,10 +18085,10 @@ const INITIAL_ASSETS = [
     "qty": 10,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -18094,7 +18096,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1243",
@@ -18218,10 +18220,10 @@ const INITIAL_ASSETS = [
     "qty": 25,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -18229,7 +18231,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1248",
@@ -18353,10 +18355,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "04/03/2026",
@@ -18364,7 +18366,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1253",
@@ -18488,10 +18490,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -18499,7 +18501,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1258",
@@ -18623,10 +18625,10 @@ const INITIAL_ASSETS = [
     "qty": 300,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -18634,7 +18636,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1263",
@@ -18758,10 +18760,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -18769,7 +18771,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1268",
@@ -18893,10 +18895,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -18904,7 +18906,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1273",
@@ -19028,10 +19030,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -19039,7 +19041,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1278",
@@ -19163,10 +19165,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -19174,7 +19176,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1283",
@@ -19271,10 +19273,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -19282,7 +19284,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1289",
@@ -19460,10 +19462,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -19471,7 +19473,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1298",
@@ -19595,10 +19597,10 @@ const INITIAL_ASSETS = [
     "qty": 500,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -19606,7 +19608,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1303",
@@ -19730,10 +19732,10 @@ const INITIAL_ASSETS = [
     "qty": 100,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -19741,7 +19743,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1308",
@@ -19811,10 +19813,10 @@ const INITIAL_ASSETS = [
     "qty": 36,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -19822,7 +19824,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1313",
@@ -19946,10 +19948,10 @@ const INITIAL_ASSETS = [
     "qty": 48,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -19957,7 +19959,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1318",
@@ -20081,10 +20083,10 @@ const INITIAL_ASSETS = [
     "qty": 21,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -20092,7 +20094,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1323",
@@ -20216,10 +20218,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -20227,7 +20229,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1328",
@@ -20351,10 +20353,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -20362,7 +20364,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1334",
@@ -20459,10 +20461,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -20470,7 +20472,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1338",
@@ -20594,10 +20596,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -20605,7 +20607,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1343",
@@ -20729,10 +20731,10 @@ const INITIAL_ASSETS = [
     "qty": 40,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -20740,7 +20742,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1348",
@@ -20837,10 +20839,10 @@ const INITIAL_ASSETS = [
     "qty": 7,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -20848,7 +20850,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1353",
@@ -20972,10 +20974,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -20983,7 +20985,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1358",
@@ -21107,10 +21109,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -21118,7 +21120,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1363",
@@ -21242,10 +21244,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -21253,7 +21255,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1368",
@@ -21377,10 +21379,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -21388,7 +21390,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1373",
@@ -21512,10 +21514,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -21523,7 +21525,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1378",
@@ -21647,10 +21649,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -21658,7 +21660,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1383",
@@ -21782,10 +21784,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -21793,7 +21795,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1393",
@@ -21944,10 +21946,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -21955,7 +21957,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1405",
@@ -22079,10 +22081,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -22090,7 +22092,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1418",
@@ -22214,10 +22216,10 @@ const INITIAL_ASSETS = [
     "qty": 15,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -22225,7 +22227,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1423",
@@ -22349,10 +22351,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -22360,7 +22362,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1428",
@@ -22484,10 +22486,10 @@ const INITIAL_ASSETS = [
     "qty": 13,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -22495,7 +22497,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1433",
@@ -22619,10 +22621,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -22630,7 +22632,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1438",
@@ -22754,10 +22756,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -22765,7 +22767,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1443",
@@ -22889,10 +22891,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -22900,7 +22902,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1448",
@@ -22997,10 +22999,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -23008,7 +23010,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1453",
@@ -23132,10 +23134,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -23143,7 +23145,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1458",
@@ -23267,10 +23269,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -23278,7 +23280,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1463",
@@ -23483,10 +23485,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -23494,7 +23496,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1473",
@@ -23618,10 +23620,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -23629,7 +23631,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1478",
@@ -23753,10 +23755,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -23764,7 +23766,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1485",
@@ -23888,10 +23890,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -23899,7 +23901,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1495",
@@ -23942,10 +23944,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -23953,7 +23955,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1500",
@@ -24104,10 +24106,10 @@ const INITIAL_ASSETS = [
     "qty": 15,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -24115,7 +24117,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1508",
@@ -24320,10 +24322,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -24331,7 +24333,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1529",
@@ -24401,10 +24403,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -24412,7 +24414,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1533",
@@ -24509,10 +24511,10 @@ const INITIAL_ASSETS = [
     "qty": 8,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -24520,7 +24522,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1538",
@@ -24698,10 +24700,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -24709,7 +24711,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1548",
@@ -24806,10 +24808,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -24817,7 +24819,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1553",
@@ -24941,10 +24943,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -24952,7 +24954,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1563",
@@ -25103,10 +25105,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -25114,7 +25116,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1578",
@@ -25211,10 +25213,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -25222,7 +25224,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1584",
@@ -25400,10 +25402,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -25411,7 +25413,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1594",
@@ -25616,10 +25618,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -25627,7 +25629,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1611",
@@ -25751,10 +25753,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -25762,7 +25764,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1618",
@@ -25886,10 +25888,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -25897,7 +25899,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1623",
@@ -26021,10 +26023,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -26032,7 +26034,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1628",
@@ -26237,10 +26239,10 @@ const INITIAL_ASSETS = [
     "qty": 31,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -26248,7 +26250,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1638",
@@ -26480,10 +26482,10 @@ const INITIAL_ASSETS = [
     "qty": 20,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -26491,7 +26493,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1653",
@@ -26615,10 +26617,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -26626,7 +26628,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1658",
@@ -26939,10 +26941,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -26950,7 +26952,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1693",
@@ -27047,10 +27049,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -27058,7 +27060,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1700",
@@ -27128,10 +27130,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -27139,7 +27141,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1703",
@@ -27209,10 +27211,10 @@ const INITIAL_ASSETS = [
     "qty": 50,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -27220,7 +27222,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1708",
@@ -27344,10 +27346,10 @@ const INITIAL_ASSETS = [
     "qty": 10,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -27355,7 +27357,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1713",
@@ -27479,10 +27481,10 @@ const INITIAL_ASSETS = [
     "qty": 50,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -27490,7 +27492,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1718",
@@ -27614,10 +27616,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -27625,7 +27627,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1725",
@@ -27830,10 +27832,10 @@ const INITIAL_ASSETS = [
     "qty": 8,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -27841,7 +27843,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1748",
@@ -27992,10 +27994,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -28003,7 +28005,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1758",
@@ -28127,10 +28129,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -28138,7 +28140,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1763",
@@ -28208,10 +28210,10 @@ const INITIAL_ASSETS = [
     "qty": 16,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -28219,7 +28221,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1768",
@@ -28343,10 +28345,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -28354,7 +28356,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1773",
@@ -28478,10 +28480,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -28489,7 +28491,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1778",
@@ -28640,10 +28642,10 @@ const INITIAL_ASSETS = [
     "qty": 15,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -28651,7 +28653,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1788",
@@ -28775,10 +28777,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -28786,7 +28788,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1793",
@@ -28910,10 +28912,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -28921,7 +28923,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1798",
@@ -29045,10 +29047,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -29056,7 +29058,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1803",
@@ -29180,10 +29182,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -29191,7 +29193,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1808",
@@ -29504,10 +29506,10 @@ const INITIAL_ASSETS = [
     "qty": 20,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -29515,7 +29517,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1828",
@@ -29639,10 +29641,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -29650,7 +29652,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1833",
@@ -29936,10 +29938,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -29947,7 +29949,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1880",
@@ -30179,10 +30181,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -30190,7 +30192,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1910",
@@ -30287,10 +30289,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -30298,7 +30300,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1928",
@@ -30341,10 +30343,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -30352,7 +30354,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1947",
@@ -30368,10 +30370,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -30379,7 +30381,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1948",
@@ -30449,10 +30451,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -30460,7 +30462,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1954",
@@ -30584,10 +30586,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -30595,7 +30597,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1964",
@@ -30908,10 +30910,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -30919,7 +30921,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-1985",
@@ -31070,10 +31072,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -31081,7 +31083,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2020",
@@ -31151,10 +31153,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -31162,7 +31164,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2028",
@@ -31232,10 +31234,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -31243,7 +31245,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2033",
@@ -31367,10 +31369,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -31378,7 +31380,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2038",
@@ -31502,10 +31504,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -31513,7 +31515,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2043",
@@ -31637,10 +31639,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -31648,7 +31650,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2048",
@@ -31826,10 +31828,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -31837,7 +31839,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2058",
@@ -31907,10 +31909,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -31918,7 +31920,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2063",
@@ -32069,10 +32071,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -32080,7 +32082,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2073",
@@ -32177,10 +32179,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -32188,7 +32190,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2078",
@@ -32258,10 +32260,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -32269,7 +32271,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2085",
@@ -32420,10 +32422,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -32431,7 +32433,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2093",
@@ -32582,10 +32584,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -32593,7 +32595,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2103",
@@ -32717,10 +32719,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -32728,7 +32730,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2108",
@@ -32852,10 +32854,10 @@ const INITIAL_ASSETS = [
     "qty": 600,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -32863,7 +32865,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2113",
@@ -32987,10 +32989,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -32998,7 +33000,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2118",
@@ -33122,10 +33124,10 @@ const INITIAL_ASSETS = [
     "qty": 10,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -33133,7 +33135,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2123",
@@ -33257,10 +33259,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -33268,7 +33270,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2128",
@@ -33392,10 +33394,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -33403,7 +33405,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2133",
@@ -33473,10 +33475,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -33484,7 +33486,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2140",
@@ -33608,10 +33610,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -33619,7 +33621,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2148",
@@ -33743,10 +33745,10 @@ const INITIAL_ASSETS = [
     "qty": 17,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -33754,7 +33756,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2153",
@@ -33878,10 +33880,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -33889,7 +33891,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2160",
@@ -34040,10 +34042,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -34051,7 +34053,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2169",
@@ -34148,10 +34150,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -34159,7 +34161,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2173",
@@ -34256,10 +34258,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -34267,7 +34269,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2178",
@@ -34391,10 +34393,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -34402,7 +34404,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2184",
@@ -34499,10 +34501,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -34510,7 +34512,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2188",
@@ -34688,10 +34690,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -34699,7 +34701,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2198",
@@ -34796,10 +34798,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -34807,7 +34809,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2203",
@@ -34931,10 +34933,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -34942,7 +34944,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2208",
@@ -35066,10 +35068,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -35077,7 +35079,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2213",
@@ -35201,10 +35203,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -35212,7 +35214,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2218",
@@ -35390,10 +35392,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -35401,7 +35403,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2228",
@@ -35525,10 +35527,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -35536,7 +35538,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2233",
@@ -35660,10 +35662,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -35671,7 +35673,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2238",
@@ -35930,10 +35932,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -35941,7 +35943,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2253",
@@ -36119,10 +36121,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -36130,7 +36132,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2263",
@@ -36254,10 +36256,10 @@ const INITIAL_ASSETS = [
     "qty": 25,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -36265,7 +36267,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2268",
@@ -36389,10 +36391,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -36400,7 +36402,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2273",
@@ -36524,10 +36526,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -36535,7 +36537,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2278",
@@ -36659,10 +36661,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -36670,7 +36672,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2283",
@@ -36794,10 +36796,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -36805,7 +36807,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2288",
@@ -36983,10 +36985,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -36994,7 +36996,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2298",
@@ -37118,10 +37120,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -37129,7 +37131,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2303",
@@ -37253,10 +37255,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -37264,7 +37266,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2308",
@@ -37496,10 +37498,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -37507,7 +37509,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2323",
@@ -37577,10 +37579,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -37588,7 +37590,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2328",
@@ -37712,10 +37714,10 @@ const INITIAL_ASSETS = [
     "qty": 50,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -37723,7 +37725,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2333",
@@ -37847,10 +37849,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -37858,7 +37860,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2338",
@@ -37982,10 +37984,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -37993,7 +37995,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2343",
@@ -38090,10 +38092,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -38101,7 +38103,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2348",
@@ -38225,10 +38227,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "TRUE",
     "alasanPenolakan": "",
     "statusStok": "17/08/2026",
@@ -38236,7 +38238,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2353",
@@ -38360,10 +38362,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -38371,7 +38373,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2358",
@@ -38495,10 +38497,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -38506,7 +38508,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2366",
@@ -38576,10 +38578,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -38587,7 +38589,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2373",
@@ -38711,10 +38713,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -38722,7 +38724,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2378",
@@ -38873,10 +38875,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -38884,7 +38886,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2393",
@@ -39008,10 +39010,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -39019,7 +39021,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2398",
@@ -39116,10 +39118,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -39127,7 +39129,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2403",
@@ -39332,10 +39334,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -39343,7 +39345,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2413",
@@ -39494,10 +39496,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -39505,7 +39507,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2423",
@@ -39629,10 +39631,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -39640,7 +39642,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2435",
@@ -39818,10 +39820,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -39829,7 +39831,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2445",
@@ -40007,10 +40009,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -40018,7 +40020,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2460",
@@ -40088,10 +40090,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -40099,7 +40101,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2463",
@@ -40277,10 +40279,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -40288,7 +40290,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2478",
@@ -40520,10 +40522,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -40531,7 +40533,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2488",
@@ -40709,10 +40711,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -40720,7 +40722,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2499",
@@ -40763,10 +40765,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -40774,7 +40776,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2503",
@@ -40898,10 +40900,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -40909,7 +40911,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2508",
@@ -41033,10 +41035,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -41044,7 +41046,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2513",
@@ -41222,10 +41224,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -41233,7 +41235,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2524",
@@ -41303,10 +41305,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -41314,7 +41316,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2528",
@@ -41438,10 +41440,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -41449,7 +41451,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2534",
@@ -41519,10 +41521,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -41530,7 +41532,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2546",
@@ -41573,10 +41575,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -41584,7 +41586,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2549",
@@ -41681,10 +41683,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -41692,7 +41694,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2553",
@@ -41897,10 +41899,10 @@ const INITIAL_ASSETS = [
     "qty": 8,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -41908,7 +41910,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2563",
@@ -42032,10 +42034,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -42043,7 +42045,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2576",
@@ -42248,10 +42250,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -42259,7 +42261,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2604",
@@ -42410,10 +42412,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -42421,7 +42423,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2614",
@@ -42518,10 +42520,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -42529,7 +42531,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2618",
@@ -42707,10 +42709,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -42718,7 +42720,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2628",
@@ -42842,10 +42844,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -42853,7 +42855,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2633",
@@ -42977,10 +42979,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -42988,7 +42990,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2638",
@@ -43112,10 +43114,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -43123,7 +43125,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2643",
@@ -43247,10 +43249,10 @@ const INITIAL_ASSETS = [
     "qty": 120,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -43258,7 +43260,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2648",
@@ -43301,10 +43303,10 @@ const INITIAL_ASSETS = [
     "qty": 60,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -43312,7 +43314,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2653",
@@ -43409,10 +43411,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -43420,7 +43422,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2658",
@@ -43652,10 +43654,10 @@ const INITIAL_ASSETS = [
     "qty": 8,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -43663,7 +43665,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2678",
@@ -43787,10 +43789,10 @@ const INITIAL_ASSETS = [
     "qty": 8,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -43798,7 +43800,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2683",
@@ -43949,10 +43951,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -43960,7 +43962,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2698",
@@ -44165,10 +44167,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -44176,7 +44178,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2708",
@@ -44381,10 +44383,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -44392,7 +44394,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2718",
@@ -44516,10 +44518,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -44527,7 +44529,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2723",
@@ -44651,10 +44653,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -44662,7 +44664,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2735",
@@ -44786,10 +44788,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -44797,7 +44799,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2743",
@@ -44921,10 +44923,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -44932,7 +44934,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2748",
@@ -45137,10 +45139,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -45148,7 +45150,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2758",
@@ -45380,10 +45382,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -45391,7 +45393,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2768",
@@ -45623,10 +45625,10 @@ const INITIAL_ASSETS = [
     "qty": 36,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -45634,7 +45636,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2783",
@@ -45758,10 +45760,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -45769,7 +45771,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2788",
@@ -45893,10 +45895,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -45904,7 +45906,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2793",
@@ -46001,10 +46003,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -46012,7 +46014,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2798",
@@ -46136,10 +46138,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -46147,7 +46149,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2803",
@@ -46217,10 +46219,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -46228,7 +46230,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2810",
@@ -46298,10 +46300,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -46309,7 +46311,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2818",
@@ -46433,10 +46435,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "FALSE",
     "alasanPenolakan": "",
     "statusStok": "01/09/2026",
@@ -46444,7 +46446,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2823",
@@ -46487,10 +46489,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -46498,7 +46500,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2835",
@@ -46541,10 +46543,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -46552,7 +46554,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2839",
@@ -46595,10 +46597,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -46606,7 +46608,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2844",
@@ -46703,10 +46705,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -46714,7 +46716,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2854",
@@ -46865,10 +46867,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -46876,7 +46878,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2871",
@@ -46973,10 +46975,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -46984,7 +46986,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2880",
@@ -47054,10 +47056,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -47065,7 +47067,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2886",
@@ -47108,10 +47110,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -47119,7 +47121,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2892",
@@ -47135,10 +47137,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -47146,7 +47148,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2901",
@@ -47216,10 +47218,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -47227,7 +47229,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2910",
@@ -47351,10 +47353,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -47362,7 +47364,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2924",
@@ -47486,10 +47488,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -47497,7 +47499,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "JABO-2934",
@@ -47783,10 +47785,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -47794,7 +47796,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-13",
@@ -47918,10 +47920,10 @@ const INITIAL_ASSETS = [
     "qty": 48,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -47929,7 +47931,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-18",
@@ -48053,10 +48055,10 @@ const INITIAL_ASSETS = [
     "qty": 50,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -48064,7 +48066,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-23",
@@ -48188,10 +48190,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -48199,7 +48201,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-28",
@@ -48323,10 +48325,10 @@ const INITIAL_ASSETS = [
     "qty": 7,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -48334,7 +48336,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-33",
@@ -48458,10 +48460,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -48469,7 +48471,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-40",
@@ -48620,10 +48622,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -48631,7 +48633,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-48",
@@ -48755,10 +48757,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -48766,7 +48768,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-53",
@@ -48890,10 +48892,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -48901,7 +48903,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-58",
@@ -49025,10 +49027,10 @@ const INITIAL_ASSETS = [
     "qty": 15,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -49036,7 +49038,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-63",
@@ -49160,10 +49162,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -49171,7 +49173,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-68",
@@ -49295,10 +49297,10 @@ const INITIAL_ASSETS = [
     "qty": 80,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -49306,7 +49308,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Maman",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-73",
@@ -49430,10 +49432,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -49441,7 +49443,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-78",
@@ -49565,10 +49567,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -49576,7 +49578,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Maman",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-83",
@@ -49700,10 +49702,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -49711,7 +49713,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-88",
@@ -49835,10 +49837,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -49846,7 +49848,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-93",
@@ -49970,10 +49972,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -49981,7 +49983,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-98",
@@ -50105,10 +50107,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Berbeda)",
@@ -50116,7 +50118,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-103",
@@ -50240,10 +50242,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -50251,7 +50253,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-113",
@@ -50375,10 +50377,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -50386,7 +50388,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-118",
@@ -50510,10 +50512,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -50521,7 +50523,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-123",
@@ -50645,10 +50647,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Berbeda)",
@@ -50656,7 +50658,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-128",
@@ -50780,10 +50782,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -50791,7 +50793,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-133",
@@ -50915,10 +50917,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -50926,7 +50928,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-138",
@@ -51050,10 +51052,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -51061,7 +51063,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-143",
@@ -51185,10 +51187,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -51196,7 +51198,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-148",
@@ -51320,10 +51322,10 @@ const INITIAL_ASSETS = [
     "qty": 10,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -51331,7 +51333,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-153",
@@ -51455,10 +51457,10 @@ const INITIAL_ASSETS = [
     "qty": 120,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -51466,7 +51468,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-158",
@@ -51590,10 +51592,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -51601,7 +51603,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-163",
@@ -51725,10 +51727,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -51736,7 +51738,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-168",
@@ -51860,10 +51862,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -51871,7 +51873,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-173",
@@ -51968,10 +51970,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -51979,7 +51981,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-178",
@@ -52103,10 +52105,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -52114,7 +52116,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-183",
@@ -52211,10 +52213,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -52222,7 +52224,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-193",
@@ -52346,10 +52348,10 @@ const INITIAL_ASSETS = [
     "qty": 48,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -52357,7 +52359,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-198",
@@ -52481,10 +52483,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -52492,7 +52494,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-203",
@@ -52616,10 +52618,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -52627,7 +52629,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-208",
@@ -52751,10 +52753,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -52762,7 +52764,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-213",
@@ -52886,10 +52888,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -52897,7 +52899,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-218",
@@ -53021,10 +53023,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -53032,7 +53034,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-223",
@@ -53156,10 +53158,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -53167,7 +53169,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-228",
@@ -53291,10 +53293,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -53302,7 +53304,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-233",
@@ -53426,10 +53428,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -53437,7 +53439,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-238",
@@ -53561,10 +53563,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -53572,7 +53574,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-243",
@@ -53696,10 +53698,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -53707,7 +53709,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-248",
@@ -53831,10 +53833,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -53842,7 +53844,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-253",
@@ -53966,10 +53968,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -53977,7 +53979,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-258",
@@ -54101,10 +54103,10 @@ const INITIAL_ASSETS = [
     "qty": 55,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -54112,7 +54114,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-263",
@@ -54236,10 +54238,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -54247,7 +54249,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-268",
@@ -54371,10 +54373,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -54382,7 +54384,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Wiwik",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-273",
@@ -54506,10 +54508,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -54517,7 +54519,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Wiwik",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-278",
@@ -54641,10 +54643,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -54652,7 +54654,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-283",
@@ -54776,10 +54778,10 @@ const INITIAL_ASSETS = [
     "qty": 7,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -54787,7 +54789,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-288",
@@ -55019,10 +55021,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -55030,7 +55032,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-298",
@@ -55154,10 +55156,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -55165,7 +55167,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-303",
@@ -55289,10 +55291,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -55300,7 +55302,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-308",
@@ -55424,10 +55426,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -55435,7 +55437,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-313",
@@ -55559,10 +55561,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -55570,7 +55572,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-318",
@@ -55694,10 +55696,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -55705,7 +55707,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Heru",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-323",
@@ -55829,10 +55831,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -55840,7 +55842,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-328",
@@ -55964,10 +55966,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -55975,7 +55977,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hapis",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-333",
@@ -56099,10 +56101,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -56110,7 +56112,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-338",
@@ -56234,10 +56236,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -56245,7 +56247,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-343",
@@ -56369,10 +56371,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -56380,7 +56382,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-348",
@@ -56504,10 +56506,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -56515,7 +56517,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-353",
@@ -56639,10 +56641,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -56650,7 +56652,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-358",
@@ -56774,10 +56776,10 @@ const INITIAL_ASSETS = [
     "qty": 10,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -56785,7 +56787,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-363",
@@ -56909,10 +56911,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -56920,7 +56922,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-368",
@@ -57044,10 +57046,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -57055,7 +57057,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-373",
@@ -57179,10 +57181,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -57190,7 +57192,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-378",
@@ -57314,10 +57316,10 @@ const INITIAL_ASSETS = [
     "qty": 120,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -57325,7 +57327,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-383",
@@ -57449,10 +57451,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -57460,7 +57462,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hapis",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-388",
@@ -57584,10 +57586,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -57595,7 +57597,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-393",
@@ -57719,10 +57721,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -57730,7 +57732,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-398",
@@ -57854,10 +57856,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -57865,7 +57867,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-403",
@@ -57989,10 +57991,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -58000,7 +58002,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-408",
@@ -58124,10 +58126,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -58135,7 +58137,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-413",
@@ -58259,10 +58261,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Berbeda)",
@@ -58270,7 +58272,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-418",
@@ -58394,10 +58396,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -58405,7 +58407,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-423",
@@ -58529,10 +58531,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -58540,7 +58542,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-428",
@@ -58664,10 +58666,10 @@ const INITIAL_ASSETS = [
     "qty": 18,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -58675,7 +58677,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-433",
@@ -58799,10 +58801,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -58810,7 +58812,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-438",
@@ -58934,10 +58936,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -58945,7 +58947,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-444",
@@ -59042,10 +59044,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -59053,7 +59055,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-448",
@@ -59177,10 +59179,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -59188,7 +59190,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-453",
@@ -59312,10 +59314,10 @@ const INITIAL_ASSETS = [
     "qty": 144,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -59323,7 +59325,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-458",
@@ -59447,10 +59449,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -59458,7 +59460,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-463",
@@ -59582,10 +59584,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -59593,7 +59595,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hapis",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-468",
@@ -59717,10 +59719,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -59728,7 +59730,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-473",
@@ -59852,10 +59854,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -59863,7 +59865,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-478",
@@ -59987,10 +59989,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -59998,7 +60000,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-483",
@@ -60122,10 +60124,10 @@ const INITIAL_ASSETS = [
     "qty": 8,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "On Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -60133,7 +60135,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-488",
@@ -60257,10 +60259,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -60268,7 +60270,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-493",
@@ -60473,10 +60475,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -60484,7 +60486,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-505",
@@ -60554,10 +60556,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -60565,7 +60567,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-508",
@@ -60689,10 +60691,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -60700,7 +60702,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "heru",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-513",
@@ -60824,10 +60826,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -60835,7 +60837,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-518",
@@ -60959,10 +60961,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -60970,7 +60972,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-523",
@@ -61067,10 +61069,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -61078,7 +61080,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-530",
@@ -61148,10 +61150,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -61159,7 +61161,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-533",
@@ -61283,10 +61285,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -61294,7 +61296,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-538",
@@ -61391,10 +61393,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -61402,7 +61404,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-548",
@@ -61499,10 +61501,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -61510,7 +61512,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-553",
@@ -61634,10 +61636,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -61645,7 +61647,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-558",
@@ -61769,10 +61771,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Berbeda)",
@@ -61780,7 +61782,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-563",
@@ -61850,10 +61852,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -61861,7 +61863,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-568",
@@ -61985,10 +61987,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -61996,7 +61998,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-573",
@@ -62120,10 +62122,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -62131,7 +62133,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-578",
@@ -62255,10 +62257,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -62266,7 +62268,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-583",
@@ -62390,10 +62392,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -62401,7 +62403,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-588",
@@ -62498,10 +62500,10 @@ const INITIAL_ASSETS = [
     "qty": 60,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -62509,7 +62511,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Mat sholeh",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-593",
@@ -62633,10 +62635,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -62644,7 +62646,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Mat sholeh",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-598",
@@ -62741,10 +62743,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -62752,7 +62754,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Mat sholeh",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-603",
@@ -62876,10 +62878,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -62887,7 +62889,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-608",
@@ -62984,10 +62986,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -62995,7 +62997,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-613",
@@ -63200,10 +63202,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -63211,7 +63213,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-623",
@@ -63335,10 +63337,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -63346,7 +63348,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-628",
@@ -63470,10 +63472,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -63481,7 +63483,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-635",
@@ -63659,10 +63661,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -63670,7 +63672,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-648",
@@ -63902,10 +63904,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -63913,7 +63915,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-658",
@@ -64037,10 +64039,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -64048,7 +64050,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-663",
@@ -64145,10 +64147,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -64156,7 +64158,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Mat soleh",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-668",
@@ -64226,10 +64228,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -64237,7 +64239,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-673",
@@ -64361,10 +64363,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -64372,7 +64374,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Deas/Hafiz",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-678",
@@ -64712,10 +64714,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Ready Gudang SCGA",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -64723,7 +64725,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-703",
@@ -64820,10 +64822,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -64831,7 +64833,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-709",
@@ -64901,10 +64903,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -64912,7 +64914,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-713",
@@ -65009,10 +65011,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "On Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -65020,7 +65022,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-718",
@@ -65144,10 +65146,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Ready Gudang SCGA",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -65155,7 +65157,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-723",
@@ -65279,10 +65281,10 @@ const INITIAL_ASSETS = [
     "qty": 30,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -65290,7 +65292,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-728",
@@ -65414,10 +65416,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -65425,7 +65427,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-733",
@@ -65549,10 +65551,10 @@ const INITIAL_ASSETS = [
     "qty": 14,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -65560,7 +65562,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-738",
@@ -65684,10 +65686,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -65695,7 +65697,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-743",
@@ -65819,10 +65821,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -65830,7 +65832,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-748",
@@ -65927,10 +65929,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -65938,7 +65940,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-753",
@@ -66035,10 +66037,10 @@ const INITIAL_ASSETS = [
     "qty": 360,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -66046,7 +66048,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-763",
@@ -66224,10 +66226,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Ready Gudang SCGA",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -66235,7 +66237,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-773",
@@ -66359,10 +66361,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -66370,7 +66372,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-778",
@@ -66467,10 +66469,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -66478,7 +66480,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-783",
@@ -66602,10 +66604,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -66613,7 +66615,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-788",
@@ -66845,10 +66847,10 @@ const INITIAL_ASSETS = [
     "qty": 17,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -66856,7 +66858,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-798",
@@ -66980,10 +66982,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -66991,7 +66993,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-803",
@@ -67115,10 +67117,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -67126,7 +67128,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-808",
@@ -67250,10 +67252,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Ready Gudang SCGA",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -67261,7 +67263,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-813",
@@ -67385,10 +67387,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -67396,7 +67398,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-818",
@@ -67520,10 +67522,10 @@ const INITIAL_ASSETS = [
     "qty": 8,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -67531,7 +67533,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-823",
@@ -67655,10 +67657,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -67666,7 +67668,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-828",
@@ -67790,10 +67792,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -67801,7 +67803,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-833",
@@ -67925,10 +67927,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -67936,7 +67938,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-838",
@@ -68060,10 +68062,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -68071,7 +68073,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-843",
@@ -68195,10 +68197,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -68206,7 +68208,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-848",
@@ -68330,10 +68332,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -68341,7 +68343,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-853",
@@ -68465,10 +68467,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -68476,7 +68478,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-858",
@@ -68600,10 +68602,10 @@ const INITIAL_ASSETS = [
     "qty": 48,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -68611,7 +68613,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-868",
@@ -68735,10 +68737,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -68746,7 +68748,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-873",
@@ -68870,10 +68872,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -68881,7 +68883,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-878",
@@ -69005,10 +69007,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -69016,7 +69018,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-883",
@@ -69140,10 +69142,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -69151,7 +69153,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-888",
@@ -69248,10 +69250,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -69259,7 +69261,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-898",
@@ -69383,10 +69385,10 @@ const INITIAL_ASSETS = [
     "qty": 15,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -69394,7 +69396,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-903",
@@ -69518,10 +69520,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Ready Gudang SCGA",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -69529,7 +69531,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-908",
@@ -69734,10 +69736,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -69745,7 +69747,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-918",
@@ -69869,10 +69871,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -69880,7 +69882,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-923",
@@ -70004,10 +70006,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -70015,7 +70017,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-928",
@@ -70139,10 +70141,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Ready Gudang SCGA",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -70150,7 +70152,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-933",
@@ -70274,10 +70276,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -70285,7 +70287,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-938",
@@ -70490,10 +70492,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -70501,7 +70503,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-949",
@@ -70598,10 +70600,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Diterima Sebagian",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -70609,7 +70611,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-953",
@@ -70733,10 +70735,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -70744,7 +70746,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-958",
@@ -70868,10 +70870,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -70879,7 +70881,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-963",
@@ -71003,10 +71005,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -71014,7 +71016,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-968",
@@ -71138,10 +71140,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Ready Gudang SCGA",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -71149,7 +71151,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-973",
@@ -71273,10 +71275,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Ready Gudang SCGA",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -71284,7 +71286,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-978",
@@ -71408,10 +71410,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -71419,7 +71421,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-983",
@@ -71543,10 +71545,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -71554,7 +71556,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-989",
@@ -71651,10 +71653,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Belum Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -71662,7 +71664,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-993",
@@ -71786,10 +71788,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Belum Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -71797,7 +71799,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-998",
@@ -71975,10 +71977,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Belum Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -71986,7 +71988,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1013",
@@ -72353,10 +72355,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -72364,7 +72366,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1064",
@@ -72434,10 +72436,10 @@ const INITIAL_ASSETS = [
     "qty": 4,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Belum Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -72445,7 +72447,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1068",
@@ -72596,10 +72598,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Belum Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -72607,7 +72609,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1083",
@@ -72704,10 +72706,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Belum Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -72715,7 +72717,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1088",
@@ -72839,10 +72841,10 @@ const INITIAL_ASSETS = [
     "qty": 3,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -72850,7 +72852,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1093",
@@ -73244,10 +73246,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -73255,7 +73257,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1113",
@@ -73379,10 +73381,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -73390,7 +73392,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1119",
@@ -73487,10 +73489,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -73498,7 +73500,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1123",
@@ -73622,10 +73624,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -73633,7 +73635,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1128",
@@ -73730,10 +73732,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "On Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -73741,7 +73743,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1138",
@@ -73946,10 +73948,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Belum Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -73957,7 +73959,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1148",
@@ -74081,10 +74083,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -74092,7 +74094,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1155",
@@ -74162,10 +74164,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -74173,7 +74175,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1158",
@@ -74297,10 +74299,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -74308,7 +74310,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1163",
@@ -74459,10 +74461,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -74470,7 +74472,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1173",
@@ -74594,10 +74596,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -74605,7 +74607,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1178",
@@ -74729,10 +74731,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -74740,7 +74742,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1183",
@@ -74864,10 +74866,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -74875,7 +74877,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1188",
@@ -75134,10 +75136,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Berbeda)",
@@ -75145,7 +75147,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1213",
@@ -75431,10 +75433,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -75442,7 +75444,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1234",
@@ -75512,10 +75514,10 @@ const INITIAL_ASSETS = [
     "qty": 25,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -75523,7 +75525,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1243",
@@ -75647,10 +75649,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -75658,7 +75660,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1248",
@@ -75782,10 +75784,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -75793,7 +75795,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Nurul",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1253",
@@ -75917,10 +75919,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -75928,7 +75930,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1258",
@@ -76052,10 +76054,10 @@ const INITIAL_ASSETS = [
     "qty": 168,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -76063,7 +76065,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1263",
@@ -76187,10 +76189,10 @@ const INITIAL_ASSETS = [
     "qty": 6,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -76198,7 +76200,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1268",
@@ -76322,10 +76324,10 @@ const INITIAL_ASSETS = [
     "qty": 15,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -76333,7 +76335,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1273",
@@ -76430,10 +76432,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -76441,7 +76443,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1283",
@@ -76565,10 +76567,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -76576,7 +76578,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1288",
@@ -76700,10 +76702,10 @@ const INITIAL_ASSETS = [
     "qty": 20,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -76711,7 +76713,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Nurul",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1293",
@@ -76862,10 +76864,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -76873,7 +76875,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1331",
@@ -76997,10 +76999,10 @@ const INITIAL_ASSETS = [
     "qty": 60,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -77008,7 +77010,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1358",
@@ -77132,10 +77134,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -77143,7 +77145,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1363",
@@ -77267,10 +77269,10 @@ const INITIAL_ASSETS = [
     "qty": 5,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Sesuai)",
@@ -77278,7 +77280,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1368",
@@ -77402,10 +77404,10 @@ const INITIAL_ASSETS = [
     "qty": 24,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -77413,7 +77415,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Dede",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1373",
@@ -77483,10 +77485,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -77494,7 +77496,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1379",
@@ -77591,10 +77593,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -77602,7 +77604,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Dede",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1383",
@@ -77726,10 +77728,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -77737,7 +77739,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "nurul",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1388",
@@ -77861,10 +77863,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -77872,7 +77874,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "nurul",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1393",
@@ -78104,10 +78106,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -78115,7 +78117,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1408",
@@ -78239,10 +78241,10 @@ const INITIAL_ASSETS = [
     "qty": 2,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -78250,7 +78252,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Nurul",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1413",
@@ -78347,10 +78349,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "Lengkap",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -78358,7 +78360,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "Nurul",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1419",
@@ -78455,10 +78457,10 @@ const INITIAL_ASSETS = [
     "qty": 10,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Berbeda)",
@@ -78466,7 +78468,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1423",
@@ -78536,10 +78538,10 @@ const INITIAL_ASSETS = [
     "qty": 1,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready Gudang",
@@ -78547,7 +78549,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1429",
@@ -78617,10 +78619,10 @@ const INITIAL_ASSETS = [
     "qty": 10,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "On Proses",
     "alasanPenolakan": "",
     "statusStok": "Not Ready (Stok Kosong)",
@@ -78628,7 +78630,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1438",
@@ -78698,10 +78700,10 @@ const INITIAL_ASSETS = [
     "qty": 12,
     "qtyDiterima": 0,
     "ceklisX": true,
-    "ceklisY": true,
+    "ceklisY": false,
     "ceklisZ": false,
     "validationStatus": "PENDING_LOGISTIK",
-    "statusPengiriman": "📦 Ready Gudang",
+    "statusPengiriman": "🛒 Procurement PO",
     "keterangan": "",
     "alasanPenolakan": "",
     "statusStok": "Ready (Spek Berbeda)",
@@ -78709,7 +78711,7 @@ const INITIAL_ASSETS = [
     "terimaOutlet": false,
     "picPenerima": "",
     "tglTerima": "",
-    "stage": 2
+    "stage": 3
   },
   {
     "id": "KLBR-1443",
@@ -78850,12 +78852,12 @@ const INITIAL_ASSETS = [
 
 class AssetDataManager {
     constructor() {
-        this.storageKey = "NEW_OUTLET_XYZ_CHECKBOX_V16";
+        this.storageKey = "NEW_OUTLET_XYZ_PRECISE_V17";
         this.assets = this.loadLocalAssets();
     }
 
     loadLocalAssets() {
-        ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12", "NEW_OUTLET_TGL_PENGAJUAN_V13", "NEW_OUTLET_FORMATTED_DATE_V14", "NEW_OUTLET_CONTINUOUS_SYNC_V15"].forEach(k => {
+        ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12", "NEW_OUTLET_TGL_PENGAJUAN_V13", "NEW_OUTLET_FORMATTED_DATE_V14", "NEW_OUTLET_CONTINUOUS_SYNC_V15", "NEW_OUTLET_XYZ_CHECKBOX_V16"].forEach(k => {
             try { localStorage.removeItem(k); } catch (e) {}
         });
 
@@ -78970,27 +78972,26 @@ class AssetDataManager {
                     asset.picPenerima = upd.picPenerima || '';
                 }
 
-                // Explicit Checkbox XYZ updates if provided
                 if (upd.ceklisX !== undefined) asset.ceklisX = Boolean(upd.ceklisX);
                 if (upd.ceklisY !== undefined) asset.ceklisY = Boolean(upd.ceklisY);
                 if (upd.ceklisZ !== undefined) asset.ceklisZ = Boolean(upd.ceklisZ);
 
                 const st = upd.statusPengiriman || '';
 
-                // USER RULE: Status Ready Antar/Ready Gudang -> Otomatis Kolom Y Terchecklist!
+                // USER RULE: Status Ready Antar / Ready Gudang -> Otomatis Y TERCHECKLIST!
                 if (st.includes('Ready Gudang') || st.includes('Dalam Pengiriman') || st.includes('Ready Antar') || st.includes('Stage 2') || st.includes('Stage 4')) {
                     asset.ceklisX = true;
-                    asset.ceklisY = true; // AUTO CHECKED COLUMN Y!
+                    asset.ceklisY = true; // AUTOMATICALLY CHECK Y!
                 }
 
-                // USER RULE: Status Valid & Diterima -> Otomatis Kolom Z Terchecklist!
+                // USER RULE: Status Valid & Diterima -> Otomatis Z TERCHECKLIST!
                 if (st.includes('Valid & Diterima') || st.includes('Stage 5')) {
                     asset.ceklisX = true;
                     asset.ceklisY = true;
-                    asset.ceklisZ = true; // AUTO CHECKED COLUMN Z!
+                    asset.ceklisZ = true; // AUTOMATICALLY CHECK Z!
                 }
 
-                // Recalculate status based on XYZ Checkboxes according to User Rules:
+                // Recalculate status strictly based on XYZ Checkboxes according to User Rules:
                 if (asset.ceklisZ) {
                     asset.validationStatus = 'ACCEPTED';
                     asset.statusPengiriman = '✅ Valid & Diterima Outlet';
@@ -79011,13 +79012,14 @@ class AssetDataManager {
                     }
                     asset.terimaOutlet = false;
                 } else if (asset.ceklisX) {
+                    // USER RULE: X checked, Y unchecked, Z unchecked -> Procurement PO (Stage 3) (e.g. Amply MK row 1155!)
                     asset.validationStatus = 'PENDING_LOGISTIK';
                     asset.statusPengiriman = '🛒 Procurement PO';
                     asset.stage = 3;
                     asset.terimaOutlet = false;
                     asset.pengirimanAset = false;
                 } else {
-                    // USER RULE: jika X, Y, Z belum terchecklist maka Pengajuan RAB (Stage 1)
+                    // USER RULE: X, Y, Z unchecked -> Pengajuan RAB (Stage 1)
                     asset.validationStatus = 'PENDING_LOGISTIK';
                     asset.statusPengiriman = '📝 Pengajuan RAB';
                     asset.stage = 1;
@@ -79038,7 +79040,7 @@ class AssetDataManager {
 
         asset.ceklisX = true;
         asset.ceklisY = true;
-        asset.ceklisZ = true; // AUTO CHECKED COLUMN Z!
+        asset.ceklisZ = true; // AUTOMATICALLY CHECK Z!
         asset.validationStatus = 'ACCEPTED';
         asset.statusPengiriman = '✅ Valid & Diterima Outlet';
         asset.terimaOutlet = true;
@@ -79052,12 +79054,11 @@ class AssetDataManager {
         return asset;
     }
 
-    // OUTLET REJECT ITEM -> Kolom Z Unchecked, Status REJECTED
     outletRejectItem(assetId, picName, reason) {
         const asset = this.assets.find(a => a.id === assetId);
         if (!asset) return null;
 
-        asset.ceklisZ = false; // UNCHECKED Z ON REJECTION!
+        asset.ceklisZ = false; // UNCHECK Z ON REJECTION!
         asset.validationStatus = 'REJECTED';
         asset.statusPengiriman = '❌ DITOLAK OUTLET (Perlu Revisi Logistik)';
         asset.terimaOutlet = false;
