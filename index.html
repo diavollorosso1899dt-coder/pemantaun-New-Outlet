@@ -62,8 +62,9 @@
                 <h2 class="banner-title-text" id="bannerTitle"><i class="fa-solid fa-shield-halved" style="color: var(--indigo);"></i> Mode Tampilan: Admin GA (Pusat Monitoring Semua Proses)</h2>
                 <p class="banner-subtitle-text" id="bannerDesc">Pusat Monitoring menampilkan seluruh proses lifecycle aset (Pengajuan RAB ➔ Check Gudang ➔ Procurement ➔ Logistik ➔ Outlet).</p>
             </div>
-            <div style="display: flex; gap: 0.6rem;">
+            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
                 <button class="btn btn-subtle" id="btnResetData"><i class="fa-solid fa-rotate-left"></i> Reset Demo</button>
+                <button class="btn btn-subtle" id="btnOpenSheetsApiModal" style="background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe;"><i class="fa-solid fa-cloud"></i> Sheets API Direct</button>
                 <button class="btn btn-primary" id="btnSyncLive"><i class="fa-solid fa-arrows-rotate"></i> Sync Google Sheets</button>
             </div>
         </div>
@@ -348,11 +349,45 @@
         </div>
     </div>
 
+    <!-- GOOGLE SHEETS API V4 DIRECT SYNC MODAL -->
+    <div class="modal-backdrop" id="googleSheetsApiModal">
+        <div class="modal-dialog-card" style="max-width: 600px; padding: 0;">
+            <div class="dialog-header" style="background: #eff6ff;">
+                <div>
+                    <h3 style="color: #1d4ed8; font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-cloud-arrow-up"></i> Integrasi Google Sheets API v4 (Tanpa Apps Script)</h3>
+                    <p style="font-size: 0.75rem; color: #3b82f6; margin-top: 0.2rem;">Pembaruan Kolom X, Y, Z langsung terhubung ke Google Spreadsheet.</p>
+                </div>
+                <button class="dialog-close-btn" id="btnCloseApiModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div style="padding: 1.5rem;">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; font-size: 0.8rem; color: #334155; line-height: 1.5;">
+                    <div style="font-weight: 800; color: #0f172a; margin-bottom: 0.4rem;">💡 Cara Menghubungkan Google Spreadsheet:</div>
+                    1. Berikan hak akses <b>Editor</b> pada link Spreadsheet ke email bot:<br>
+                    <code style="background:#e2e8f0; padding:0.2rem 0.4rem; border-radius:4px; font-weight:700; color:#1e293b; display:inline-block; margin:0.3rem 0;">new-outlet-asset-sync@antigravity-asset-tracker.iam.gserviceaccount.com</code><br>
+                    2. Masukkan Google API Key (Opsional) untuk aktivasi REST v4 langsung.
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">Google API Key (Opsional)</label>
+                    <input type="text" id="apiModalKeyInput" placeholder="Masukkan Google Sheets API Key..." style="width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem;">
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="checkbox" id="apiModalAutoSyncChk" checked style="width: 1.1rem; height: 1.1rem; accent-color: #2563eb;">
+                    <label for="apiModalAutoSyncChk" style="font-size: 0.85rem; font-weight: 700; color: #334155; cursor: pointer;">Otomatis Sync Kolom X,Y,Z Setiap Kali Input Logistik / Terima Outlet</label>
+                </div>
+            </div>
+            <div class="dialog-footer">
+                <button type="button" class="btn-dialog-cancel" id="btnCancelApiModal">Batal</button>
+                <button type="button" class="btn-dialog-save" id="btnSaveApiConfig"><i class="fa-solid fa-check"></i> Simpan Konfigurasi Sync</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notifications -->
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- App Logic Scripts -->
     <script src="data.js"></script>
+    <script src="sheets_sync_service.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

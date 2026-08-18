@@ -840,9 +840,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        window.dataManager.batchUpdateLogistics(state.activeOutletKey, updates);
+        const updatedOutlet = window.dataManager.batchUpdateLogistics(state.activeOutletKey, updates);
+        if (window.sheetsApiSync && updatedOutlet && updatedOutlet.items) {
+            window.sheetsApiSync.syncOutletBatch(updatedOutlet.items);
+        }
         closeBatchModal();
-        showToast(`Status & Checklist X,Y,Z untuk ${updates.length} item berhasil diperbarui!`, "success");
+        showToast(`Status & Checklist X,Y,Z untuk ${updates.length} item berhasil diperbarui & di-sync ke Google Sheets!`, "success");
         render();
     }
 
@@ -1008,6 +1011,41 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    }
+
+    // GOOGLE SHEETS API MODAL HANDLERS
+    const googleSheetsApiModal = document.getElementById('googleSheetsApiModal');
+    const btnOpenSheetsApiModal = document.getElementById('btnOpenSheetsApiModal');
+    const btnCloseApiModal = document.getElementById('btnCloseApiModal');
+    const btnCancelApiModal = document.getElementById('btnCancelApiModal');
+    const btnSaveApiConfig = document.getElementById('btnSaveApiConfig');
+    const apiModalKeyInput = document.getElementById('apiModalKeyInput');
+    const apiModalAutoSyncChk = document.getElementById('apiModalAutoSyncChk');
+
+    if (btnOpenSheetsApiModal) {
+        btnOpenSheetsApiModal.addEventListener('click', () => {
+            if (window.sheetsApiSync) {
+                if (apiModalKeyInput) apiModalKeyInput.value = window.sheetsApiSync.config.apiKey || '';
+                if (apiModalAutoSyncChk) apiModalAutoSyncChk.checked = window.sheetsApiSync.config.autoSync !== false;
+            }
+            if (googleSheetsApiModal) googleSheetsApiModal.classList.add('active');
+        });
+    }
+
+    if (btnCloseApiModal) btnCloseApiModal.addEventListener('click', () => { if (googleSheetsApiModal) googleSheetsApiModal.classList.remove('active'); });
+    if (btnCancelApiModal) btnCancelApiModal.addEventListener('click', () => { if (googleSheetsApiModal) googleSheetsApiModal.classList.remove('active'); });
+
+    if (btnSaveApiConfig) {
+        btnSaveApiConfig.addEventListener('click', () => {
+            if (window.sheetsApiSync) {
+                window.sheetsApiSync.saveConfig({
+                    apiKey: apiModalKeyInput ? apiModalKeyInput.value.trim() : '',
+                    autoSync: apiModalAutoSyncChk ? apiModalAutoSyncChk.checked : true
+                });
+            }
+            if (googleSheetsApiModal) googleSheetsApiModal.classList.remove('active');
+            showToast("✅ Konfigurasi Direct Sync Google Sheets API berhasil disimpan!", "success");
+        });
     }
 
     init();
