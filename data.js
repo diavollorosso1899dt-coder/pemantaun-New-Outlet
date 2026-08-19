@@ -1,10 +1,6 @@
 /**
- * New Outlet Asset Monitoring System - Precise XYZ Checkbox Engine V17
- * Strict User Rules:
- * 1. X=false, Y=false, Z=false -> 📝 Pengajuan RAB (Stage 1)
- * 2. X=true, Y=false, Z=false -> 🛒 Procurement PO (Stage 3) (Matches Row 1155 in Spreadsheet!)
- * 3. Status "Ready Antar / Ready Gudang" -> Otomatis Y=true (Stage 2)
- * 4. Outlet PIC Klik "Terima Barang" -> Otomatis Z=true (Stage 5)
+ * New Outlet Asset Monitoring System - Proper Initial State Engine V18
+ * Default Mode: Logistik (Admin GA Hidden)
  */
 
 const INITIAL_ASSETS = [
@@ -78852,12 +78848,12 @@ const INITIAL_ASSETS = [
 
 class AssetDataManager {
     constructor() {
-        this.storageKey = "NEW_OUTLET_XYZ_PRECISE_V17";
+        this.storageKey = "NEW_OUTLET_PROPER_V18";
         this.assets = this.loadLocalAssets();
     }
 
     loadLocalAssets() {
-        ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12", "NEW_OUTLET_TGL_PENGAJUAN_V13", "NEW_OUTLET_FORMATTED_DATE_V14", "NEW_OUTLET_CONTINUOUS_SYNC_V15", "NEW_OUTLET_XYZ_CHECKBOX_V16"].forEach(k => {
+        ["NEW_OUTLET_ASSETS_OUTLET_SPECIFIC_V5", "NEW_OUTLET_ASSETS_3ROLE_VALIDATION_V6", "NEW_OUTLET_ASSETS_FIXED_V7", "NEW_OUTLET_ASSETS_CLEAN_V8", "NEW_OUTLET_SYSTEM_PROPER_V9", "NEW_OUTLET_RECEIVER_V10", "NEW_OUTLET_RAB_SEPARATED_V11", "NEW_OUTLET_JABO_COL_E_V12", "NEW_OUTLET_TGL_PENGAJUAN_V13", "NEW_OUTLET_FORMATTED_DATE_V14", "NEW_OUTLET_CONTINUOUS_SYNC_V15", "NEW_OUTLET_XYZ_CHECKBOX_V16", "NEW_OUTLET_XYZ_PRECISE_V17"].forEach(k => {
             try { localStorage.removeItem(k); } catch (e) {}
         });
 
@@ -78961,7 +78957,6 @@ class AssetDataManager {
         return outlets.find(o => o.key === outletKey || o.name === outletKey);
     }
 
-    // LOGISTIK & CHECKBOX BATCH UPDATE ENGINE
     batchUpdateLogistics(outletKey, itemsUpdates) {
         itemsUpdates.forEach(upd => {
             const asset = this.assets.find(a => a.id === upd.id);
@@ -78978,20 +78973,17 @@ class AssetDataManager {
 
                 const st = upd.statusPengiriman || '';
 
-                // USER RULE: Status Ready Antar / Ready Gudang -> Otomatis Y TERCHECKLIST!
                 if (st.includes('Ready Gudang') || st.includes('Dalam Pengiriman') || st.includes('Ready Antar') || st.includes('Stage 2') || st.includes('Stage 4')) {
                     asset.ceklisX = true;
-                    asset.ceklisY = true; // AUTOMATICALLY CHECK Y!
+                    asset.ceklisY = true;
                 }
 
-                // USER RULE: Status Valid & Diterima -> Otomatis Z TERCHECKLIST!
                 if (st.includes('Valid & Diterima') || st.includes('Stage 5')) {
                     asset.ceklisX = true;
                     asset.ceklisY = true;
-                    asset.ceklisZ = true; // AUTOMATICALLY CHECK Z!
+                    asset.ceklisZ = true;
                 }
 
-                // Recalculate status strictly based on XYZ Checkboxes according to User Rules:
                 if (asset.ceklisZ) {
                     asset.validationStatus = 'ACCEPTED';
                     asset.statusPengiriman = '✅ Valid & Diterima Outlet';
@@ -79012,14 +79004,12 @@ class AssetDataManager {
                     }
                     asset.terimaOutlet = false;
                 } else if (asset.ceklisX) {
-                    // USER RULE: X checked, Y unchecked, Z unchecked -> Procurement PO (Stage 3) (e.g. Amply MK row 1155!)
                     asset.validationStatus = 'PENDING_LOGISTIK';
                     asset.statusPengiriman = '🛒 Procurement PO';
                     asset.stage = 3;
                     asset.terimaOutlet = false;
                     asset.pengirimanAset = false;
                 } else {
-                    // USER RULE: X, Y, Z unchecked -> Pengajuan RAB (Stage 1)
                     asset.validationStatus = 'PENDING_LOGISTIK';
                     asset.statusPengiriman = '📝 Pengajuan RAB';
                     asset.stage = 1;
@@ -79033,14 +79023,13 @@ class AssetDataManager {
         return this.getOutletDetails(outletKey);
     }
 
-    // USER RULE: Outlet PIC Klik Terima -> Kolom Z Otomatis Terchecklist!
     outletAcceptItem(assetId, picName) {
         const asset = this.assets.find(a => a.id === assetId);
         if (!asset) return null;
 
         asset.ceklisX = true;
         asset.ceklisY = true;
-        asset.ceklisZ = true; // AUTOMATICALLY CHECK Z!
+        asset.ceklisZ = true;
         asset.validationStatus = 'ACCEPTED';
         asset.statusPengiriman = '✅ Valid & Diterima Outlet';
         asset.terimaOutlet = true;
@@ -79058,7 +79047,7 @@ class AssetDataManager {
         const asset = this.assets.find(a => a.id === assetId);
         if (!asset) return null;
 
-        asset.ceklisZ = false; // UNCHECK Z ON REJECTION!
+        asset.ceklisZ = false;
         asset.validationStatus = 'REJECTED';
         asset.statusPengiriman = '❌ DITOLAK OUTLET (Perlu Revisi Logistik)';
         asset.terimaOutlet = false;

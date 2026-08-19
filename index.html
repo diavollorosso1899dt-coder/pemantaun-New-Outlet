@@ -37,12 +37,12 @@
                     <button class="control-btn" data-area="KALBAR" id="areaKalbar">🌴 Area Kalbar</button>
                 </div>
 
-                <!-- 3 Role Buttons -->
+                <!-- 3 Role Buttons (Admin GA hidden by default) -->
                 <div class="role-group" id="roleGroup">
-                    <button class="role-badge-btn active-admin" data-role="admin_ga" id="btnRoleAdminGA" title="Pusat Monitoring Semuanya">
+                    <button class="role-badge-btn hidden-role" data-role="admin_ga" id="btnRoleAdminGA" style="display: none;" title="Pusat Monitoring Semuanya">
                         <i class="fa-solid fa-shield-halved"></i> Admin GA
                     </button>
-                    <button class="role-badge-btn" data-role="logistik" id="btnRoleLogistik" title="Input Qty & Keterangan">
+                    <button class="role-badge-btn active-logistik" data-role="logistik" id="btnRoleLogistik" title="Input Qty & Keterangan">
                         <i class="fa-solid fa-truck-ramp-box"></i> Logistik
                     </button>
                     <button class="role-badge-btn" data-role="outlet" id="btnRoleOutlet" title="Validasi Terima / Tolak Fisik Barang">
@@ -57,10 +57,10 @@
     <main>
 
         <!-- Dynamic Role Context Banner -->
-        <div class="role-banner-card admin-banner" id="roleBannerCard">
+        <div class="role-banner-card logistik-banner" id="roleBannerCard">
             <div>
-                <h2 class="banner-title-text" id="bannerTitle"><i class="fa-solid fa-shield-halved" style="color: var(--indigo);"></i> Mode Tampilan: Admin GA (Pusat Monitoring Semua Proses)</h2>
-                <p class="banner-subtitle-text" id="bannerDesc">Pusat Monitoring menampilkan seluruh proses lifecycle aset (Pengajuan RAB ➔ Check Gudang ➔ Procurement ➔ Logistik ➔ Outlet).</p>
+                <h2 class="banner-title-text" id="bannerTitle"><i class="fa-solid fa-truck-ramp-box" style="color: var(--amber);"></i> Mode Tampilan: Tim Logistik (Gudang)</h2>
+                <p class="banner-subtitle-text" id="bannerDesc">Mode Logistik terbatas untuk mengetik Qty Dikirim, Status Pengiriman, dan Ceklis Process (X, Y, Z).</p>
             </div>
             <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
                 <button class="btn btn-subtle" id="btnResetData"><i class="fa-solid fa-rotate-left"></i> Reset Demo</button>

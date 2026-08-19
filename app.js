@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try { localStorage.removeItem(k); } catch (e) {}
     });
 
-    // App State
+    // App State (Default initial role: Logistik, Admin GA hidden on load)
     const state = {
-        role: 'admin_ga', // 'admin_ga' | 'logistik' | 'outlet'
-        isAdminUnlocked: true,
+        role: 'logistik', // DEFAULT INITIAL ROLE ON LOAD IS LOGISTIK!
+        isAdminUnlocked: false, // ADMIN GA HIDDEN BY DEFAULT!
         selectedArea: 'ALL', // 'ALL' | 'JABODETABEK' | 'KALBAR'
         activeTab: 'outlet-view', // 'outlet-view' | 'all-items-view'
         activeStageFilter: null,
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupSecretAdminTriggers();
         setupEventListeners();
         setupRealtimeSync();
-        render();
+        switchRoleMode(state.role);
     }
 
     function setupRealtimeSync() {
