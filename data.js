@@ -78974,7 +78974,7 @@ class AssetDataManager {
 
                 if (st.includes('Done Transfer') || st.includes('Transfer')) {
                     asset.validationStatus = 'PENDING_LOGISTIK';
-                    asset.statusPengiriman = '💸 Done Transfer';
+                    asset.statusPengiriman = '💸 Done Transfer (Perpindahan aset melalui sistem)';
                     asset.stage = 3;
                     asset.ceklisX = true;
                     asset.ceklisY = false;
