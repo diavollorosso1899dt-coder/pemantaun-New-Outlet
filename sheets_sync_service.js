@@ -1,18 +1,17 @@
 /**
- * Google Sheets API v4 Direct 2-Way Sync Service (No Apps Script Required)
- * Updates Columns X (Ceklis Atasan), Y (Ready Antar), Z (Diterima Outlet), Qty, and PIC in real-time
+ * Google Sheets API v4 Direct 2-Way Sync Service
+ * Target Master Sheet: Pemantauan New Outlet (1Dw7MH29XFiqx1bkHqMQ0lthYxhLfx3QWyVBWuzR-nh0)
+ * Columns: A: no | B: No.RAB | C: Outlet | D: Nama item | E: Qty | F: Status Terkini
  */
 
 class GoogleSheetsApiSync {
     constructor() {
-        this.storageKey = "NEW_OUTLET_SHEETS_API_CONFIG_V1";
+        this.storageKey = "NEW_OUTLET_SHEETS_API_CONFIG_V2";
         this.config = this.loadConfig();
         
-        // Target Spreadsheet IDs
-        this.spreadsheetIds = {
-            JABODETABEK: "1C6ElX_Od2X3pfZWNLQDvV8ZLiQWE1VQpy1co6MadNp8",
-            KALBAR: "1E0pOrw6GgpnOx3u2tvsZL-vbVEG_CqXNRP4fWgOkzG0"
-        };
+        // Target Spreadsheet ID provided by User
+        this.targetSpreadsheetId = "1Dw7MH29XFiqx1bkHqMQ0lthYxhLfx3QWyVBWuzR-nh0";
+        this.sheetName = "Sheet1";
     }
 
     loadConfig() {
@@ -34,94 +33,67 @@ class GoogleSheetsApiSync {
     }
 
     /**
-     * Send direct HTTP request to Google Sheets API v4 REST Endpoint
+     * Update single item status in Pemantauan New Outlet Spreadsheet (1Dw7MH29XFiqx1bkHqMQ0lthYxhLfx3QWyVBWuzR-nh0)
      */
-    async updateCellValues(area, range, values) {
-        const spreadsheetId = this.spreadsheetIds[area] || this.spreadsheetIds.JABODETABEK;
+    async syncAssetItem(assetItem) {
+        if (!assetItem) return null;
+
+        let rowIndex = 2;
+        if (assetItem.id) {
+            const parts = assetItem.id.split('-');
+            if (parts.length > 1) {
+                const parsedId = parseInt(parts[1]);
+                if (!isNaN(parsedId)) {
+                    rowIndex = 1 + parsedId;
+                }
+            }
+        }
+
+        // Columns: A: no | B: No.RAB | C: Outlet | D: Nama item | E: Qty | F: Status Terkini
+        const range = "'" + this.sheetName + "'!A" + rowIndex + ":F" + rowIndex;
+        const values = [[
+            rowIndex - 1,
+            assetItem.rabCode || "-",
+            assetItem.outlet || "-",
+            assetItem.item || "-",
+            assetItem.qty || 1,
+            assetItem.statusPengiriman || "📝 Pengajuan RAB"
+        ]];
+
+        return await this.updateCellValues(range, values);
+    }
+
+    async updateCellValues(range, values) {
+        const spreadsheetId = this.targetSpreadsheetId;
         const apiKey = this.config.apiKey;
 
         if (!apiKey) {
-            console.log(`[GoogleSheetsAPI] Direct REST payload prepared for ${area} range ${range}:`, values);
+            console.log("[GoogleSheetsAPI] Direct payload prepared for Spreadsheet " + spreadsheetId + " range " + range + ":", values);
             return { success: true, simulated: true, range, values };
         }
 
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}?valueInputOption=USER_ENTERED&key=${apiKey}`;
+        const url = "https://sheets.googleapis.com/v4/spreadsheets/" + spreadsheetId + "/values/" + encodeURIComponent(range) + "?valueInputOption=USER_ENTERED&key=" + apiKey;
 
         try {
             const response = await fetch(url, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    range: range,
-                    majorDimension: "ROWS",
-                    values: values
-                })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ range, majorDimension: "ROWS", values })
             });
 
             if (!response.ok) {
                 const errJson = await response.json();
                 throw new Error(errJson.error ? errJson.error.message : "Failed to update Google Sheets");
             }
-
-            const resData = await response.json();
-            return { success: true, data: resData };
+            return { success: true, data: await response.json() };
         } catch (error) {
-            console.warn("[GoogleSheetsAPI] API Call warning, falling back to simulated sync:", error.message);
+            console.warn("[GoogleSheetsAPI] API Call fallback:", error.message);
             return { success: true, fallback: true, message: error.message };
         }
     }
 
-    /**
-     * Sync single Asset item Checkboxes (X, Y, Z), Qty, and PIC directly to Google Sheets
-     */
-    async syncAssetItem(assetItem) {
-        if (!assetItem) return null;
-
-        const area = assetItem.area === "KALBAR" ? "KALBAR" : "JABODETABEK";
-        const sheetName = area === "JABODETABEK" ? "79 REKAP" : "Master Asset";
-        
-        // Calculate row index from Asset ID (e.g., JABO-1110 -> Row 1110)
-        let rowIndex = 10;
-        if (assetItem.id) {
-            const parts = assetItem.id.split('-');
-            if (parts.length > 1) {
-                const parsedId = parseInt(parts[1]);
-                if (!isNaN(parsedId)) {
-                    rowIndex = 10 + parsedId;
-                }
-            }
-        }
-
-        // Columns X (24th col), Y (25th col), Z (26th col)
-        // Checkbox values: "TRUE" / "FALSE"
-        const rangeXYZ = `'${sheetName}'!X${rowIndex}:Z${rowIndex}`;
-        const valuesXYZ = [[
-            assetItem.ceklisX ? "TRUE" : "FALSE",
-            assetItem.ceklisY ? "TRUE" : "FALSE",
-            assetItem.ceklisZ ? "TRUE" : "FALSE"
-        ]];
-
-        const resXYZ = await this.updateCellValues(area, rangeXYZ, valuesXYZ);
-
-        // Also update PIC Penerima & Catatan if column range available
-        const rangePIC = `'${sheetName}'!AO${rowIndex}:AP${rowIndex}`;
-        const valuesPIC = [[
-            assetItem.picPenerima || "",
-            assetItem.keterangan || ""
-        ]];
-        await this.updateCellValues(area, rangePIC, valuesPIC);
-
-        return resXYZ;
-    }
-
-    /**
-     * Batch Sync all items in an Outlet
-     */
     async syncOutletBatch(outletItems) {
         if (!Array.isArray(outletItems) || outletItems.length === 0) return;
-
         const results = [];
         for (const item of outletItems) {
             const res = await this.syncAssetItem(item);

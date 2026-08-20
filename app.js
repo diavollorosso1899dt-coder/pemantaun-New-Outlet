@@ -711,7 +711,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>
                         <select class="modal-select-status">
                             <option value="📝 Pengajuan RAB" ${(!item.ceklisX && !item.ceklisY && !item.ceklisZ) || parseInt(item.stage) === 1 ? 'selected' : ''}>📝 Pengajuan RAB</option>
-                            <option value="🛒 Procurement PO" ${item.ceklisX && !item.ceklisY && !item.ceklisZ ? 'selected' : ''}>🛒 Procurement PO</option>
+                            <option value="🛒 Procurement PO" ${item.statusPengiriman === '🛒 Procurement PO' || (item.ceklisX && !item.ceklisY && !item.ceklisZ) ? 'selected' : ''}>🛒 Procurement PO</option>
+                            <option value="💸 Done Transfer" ${item.statusPengiriman === '💸 Done Transfer' ? 'selected' : ''}>💸 Done Transfer</option>
                             <option value="📦 Ready Gudang / Ready Antar" ${item.ceklisY && !item.ceklisZ && parseInt(item.stage) === 2 ? 'selected' : ''}>📦 Ready Gudang / Ready Antar</option>
                             <option value="🚚 Dalam Pengiriman" ${item.ceklisY && !item.ceklisZ && (parseInt(item.stage) === 4 || isRejected) ? 'selected' : ''}>🚚 Dalam Pengiriman</option>
                             <option value="✅ Valid & Diterima" ${item.ceklisZ || parseInt(item.stage) === 5 ? 'selected' : ''}>✅ Valid & Diterima</option>
