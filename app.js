@@ -1050,14 +1050,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnSaveApiConfig) {
         btnSaveApiConfig.addEventListener('click', () => {
             if (window.sheetsApiSync) {
+                const webhookUrl = apiModalWebhookInput ? apiModalWebhookInput.value.trim() : '';
                 window.sheetsApiSync.saveConfig({
                     apiKey: apiModalKeyInput ? apiModalKeyInput.value.trim() : '',
-                    webhookUrl: apiModalWebhookInput ? apiModalWebhookInput.value.trim() : '',
+                    webhookUrl: webhookUrl,
                     autoSync: apiModalAutoSyncChk ? apiModalAutoSyncChk.checked : true
                 });
+                
+                // Immediately push all current assets to the new Webhook URL!
+                if (webhookUrl && window.dataManager) {
+                    const allAssets = window.dataManager.getAssets();
+                    window.sheetsApiSync.syncOutletBatch(allAssets);
+                }
             }
             if (googleSheetsApiModal) googleSheetsApiModal.classList.remove('active');
-            showToast("✅ Konfigurasi Direct Auto Sync berhasil disimpan!", "success");
+            showToast("✅ Konfigurasi Direct Auto Sync disimpan! Data sedang terisi otomatis ke Google Sheet...", "success");
         });
     }
 
