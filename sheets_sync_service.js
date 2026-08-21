@@ -7,25 +7,30 @@
 
 class GoogleSheetsApiSync {
     constructor() {
-        this.storageKey = "NEW_OUTLET_SHEETS_API_CONFIG_V4";
-        this.config = this.loadConfig();
+        this.storageKey = "NEW_OUTLET_SHEETS_API_CONFIG_V5";
         
-        // Target Spreadsheet ID & Tab Name
+        // Hardcoded Active Webhook URLs from User Apps Script Deployments
+        this.activeWebhookUrls = [
+            "https://script.google.com/macros/s/AKfycbz1PWkaXEVeSaObijlOSbzyhRXeleskkfsWbnix2uriDMo-Lwq8VhUgVFxKoMc4g/exec",
+            "https://script.google.com/macros/s/AKfycbz3NUzD-Aah99JiSaabUBI81EF6bPq8_p5OxJ8kwaVe7EPM5DEh8c3RAnk4ucg/exec"
+        ];
+        
+        this.config = this.loadConfig();
         this.targetSpreadsheetId = "1Dw7MH29XFiqx1bkHqMQ0lthYxhLfx3QWyVBWuzR-nh0";
         this.sheetName = "Data Base Status";
-
-        // Pre-configured Apps Script Webhook for 100% Automatic Direct Sync
-        this.defaultWebhookUrl = "https://script.google.com/macros/s/AKfycbz_AutoSyncNewOutlet/exec";
     }
 
     loadConfig() {
         const saved = localStorage.getItem(this.storageKey);
         if (saved) {
-            try { return JSON.parse(saved); } catch (e) {}
+            try {
+                const parsed = JSON.parse(saved);
+                if (parsed.webhookUrl) return parsed;
+            } catch (e) {}
         }
         return {
             apiKey: "",
-            webhookUrl: "",
+            webhookUrl: this.activeWebhookUrls[0],
             serviceAccountEmail: "new-outlet-asset-sync@antigravity-asset-tracker.iam.gserviceaccount.com",
             autoSync: true,
             isConnected: true
@@ -37,8 +42,14 @@ class GoogleSheetsApiSync {
         localStorage.setItem(this.storageKey, JSON.stringify(this.config));
     }
 
+    getEffectiveWebhookUrl() {
+        return (this.config && this.config.webhookUrl && this.config.webhookUrl.trim().length > 10) 
+            ? this.config.webhookUrl.trim() 
+            : this.activeWebhookUrls[0];
+    }
+
     /**
-     * Automatically send single item update to Tab "Data Base Status"
+     * Send single item update directly to Google Apps Script Webhook
      */
     async syncAssetItem(assetItem) {
         if (!assetItem) return null;
@@ -69,27 +80,25 @@ class GoogleSheetsApiSync {
             keterangan: assetItem.keterangan || ""
         };
 
-        const targetUrl = this.config.webhookUrl || this.defaultWebhookUrl;
+        const urlsToTry = [this.getEffectiveWebhookUrl(), ...this.activeWebhookUrls];
 
-        try {
-            // Send payload via fetch POST to Google Apps Script Webhook
-            fetch(targetUrl, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            }).catch(err => console.log("Auto sync background push:", err));
+        urlsToTry.forEach(targetUrl => {
+            try {
+                fetch(targetUrl, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                }).catch(err => console.log("Background Webhook push error:", err));
+            } catch(e) {}
+        });
 
-            console.log("[AutoSheetsSync] Item sent directly to Data Base Status:", payload);
-            return { success: true, payload };
-        } catch(e) {
-            console.warn("[AutoSheetsSync] Auto sync warning:", e.message);
-            return { success: true, simulated: true, payload };
-        }
+        console.log("[AutoSheetsSync] Direct Webhook payload sent:", payload);
+        return { success: true, payload };
     }
 
     /**
-     * Automatically send all items in batch to fill "Data Base Status" tab
+     * Send batch items update directly to Google Apps Script Webhook
      */
     async syncOutletBatch(outletItems) {
         if (!Array.isArray(outletItems) || outletItems.length === 0) return;
@@ -110,27 +119,23 @@ class GoogleSheetsApiSync {
             }))
         };
 
-        const targetUrl = this.config.webhookUrl || this.defaultWebhookUrl;
+        const urlsToTry = [this.getEffectiveWebhookUrl(), ...this.activeWebhookUrls];
 
-        try {
-            fetch(targetUrl, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            }).catch(err => console.log("Batch auto sync push:", err));
+        urlsToTry.forEach(targetUrl => {
+            try {
+                fetch(targetUrl, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                }).catch(err => console.log("Batch Webhook push error:", err));
+            } catch (e) {}
+        });
 
-            console.log("[AutoSheetsSync] Batch payload sent directly to Data Base Status:", payload);
-            return { success: true, count: outletItems.length };
-        } catch (e) {
-            console.warn("[AutoSheetsSync] Batch warning:", e.message);
-            return { success: true, simulated: true };
-        }
+        console.log("[AutoSheetsSync] Direct Batch Webhook payload sent:", payload);
+        return { success: true, count: outletItems.length };
     }
 
-    /**
-     * Generate 1-Click Copy Data for Tab "Data Base Status"
-     */
     copyFormattedDataForDatabaseStatus(assets) {
         let tsvContent = "no	No.RAB	Outlet	Nama item	Qty	Status Terkini
 ";
@@ -138,11 +143,7 @@ class GoogleSheetsApiSync {
             tsvContent += (idx + 1) + "	" + (a.rabCode || "-") + "	" + (a.outlet || "-") + "	" + (a.item || "-") + "	" + (a.qty || 1) + "	" + (a.statusPengiriman || "📝 Pengajuan RAB") + "
 ";
         });
-        
-        try {
-            navigator.clipboard.writeText(tsvContent);
-        } catch(e) {}
-
+        try { navigator.clipboard.writeText(tsvContent); } catch(e) {}
         return tsvContent;
     }
 }

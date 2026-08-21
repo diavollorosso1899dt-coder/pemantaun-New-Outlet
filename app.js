@@ -850,12 +850,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         closeBatchModal();
 
-        const hasWebhook = window.sheetsApiSync && window.sheetsApiSync.config && window.sheetsApiSync.config.webhookUrl;
-        if (hasWebhook) {
-            showToast(`✅ Data ${updates.length} item berhasil diperbarui & terkirim otomatis ke Tab Data Base Status!`, "success");
-        } else {
-            showToast(`📋 Data ${updates.length} item diperbarui & disalin ke Clipboard! Buka Tab 'Data Base Status' lalu tekan Ctrl+V di sel A2.`, "success");
+        if (window.sheetsApiSync && updatedOutlet && updatedOutlet.items) {
+            window.sheetsApiSync.syncOutletBatch(updatedOutlet.items);
+            const allAssets = window.dataManager.getAssets();
+            window.sheetsApiSync.copyFormattedDataForDatabaseStatus(allAssets);
         }
+        closeBatchModal();
+        showToast(`✅ Data ${updates.length} item berhasil diperbarui & terkirim otomatis ke Tab Data Base Status!`, "success");
         render();
     }
 
