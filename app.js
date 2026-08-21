@@ -844,9 +844,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const updatedOutlet = window.dataManager.batchUpdateLogistics(state.activeOutletKey, updates);
         if (window.sheetsApiSync && updatedOutlet && updatedOutlet.items) {
             window.sheetsApiSync.syncOutletBatch(updatedOutlet.items);
+            // Automatically copy formatted TSV to clipboard so user can press Ctrl+V at cell A2 if Webhook not set
+            const allAssets = window.dataManager.getAssets();
+            window.sheetsApiSync.copyFormattedDataForDatabaseStatus(allAssets);
         }
         closeBatchModal();
-        showToast(`Status & Checklist X,Y,Z untuk ${updates.length} item berhasil diperbarui & di-sync ke Google Sheets!`, "success");
+
+        const hasWebhook = window.sheetsApiSync && window.sheetsApiSync.config && window.sheetsApiSync.config.webhookUrl;
+        if (hasWebhook) {
+            showToast(`✅ Data ${updates.length} item berhasil diperbarui & terkirim otomatis ke Tab Data Base Status!`, "success");
+        } else {
+            showToast(`📋 Data ${updates.length} item diperbarui & disalin ke Clipboard! Buka Tab 'Data Base Status' lalu tekan Ctrl+V di sel A2.`, "success");
+        }
         render();
     }
 
