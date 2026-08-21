@@ -1,17 +1,18 @@
 /**
- * Google Sheets API v4 Direct 2-Way Sync Service
- * Target Master Sheet: Pemantauan New Outlet (1Dw7MH29XFiqx1bkHqMQ0lthYxhLfx3QWyVBWuzR-nh0)
+ * Google Sheets API v4 & Webhook Direct Sync Service
+ * Target Spreadsheet: Pemantauan New Outlet (1Dw7MH29XFiqx1bkHqMQ0lthYxhLfx3QWyVBWuzR-nh0)
+ * Tab Name: "Data Base Status"
  * Columns: A: no | B: No.RAB | C: Outlet | D: Nama item | E: Qty | F: Status Terkini
  */
 
 class GoogleSheetsApiSync {
     constructor() {
-        this.storageKey = "NEW_OUTLET_SHEETS_API_CONFIG_V2";
+        this.storageKey = "NEW_OUTLET_SHEETS_API_CONFIG_V3";
         this.config = this.loadConfig();
         
-        // Target Spreadsheet ID provided by User
+        // Target Spreadsheet ID & Tab Name from User Screenshot
         this.targetSpreadsheetId = "1Dw7MH29XFiqx1bkHqMQ0lthYxhLfx3QWyVBWuzR-nh0";
-        this.sheetName = "Sheet1";
+        this.sheetName = "Data Base Status";
     }
 
     loadConfig() {
@@ -21,6 +22,7 @@ class GoogleSheetsApiSync {
         }
         return {
             apiKey: "",
+            webhookUrl: "",
             serviceAccountEmail: "new-outlet-asset-sync@antigravity-asset-tracker.iam.gserviceaccount.com",
             autoSync: true,
             isConnected: true
@@ -33,7 +35,7 @@ class GoogleSheetsApiSync {
     }
 
     /**
-     * Update single item status in Pemantauan New Outlet Spreadsheet (1Dw7MH29XFiqx1bkHqMQ0lthYxhLfx3QWyVBWuzR-nh0)
+     * Single Asset Item Sync to Data Base Status sheet
      */
     async syncAssetItem(assetItem) {
         if (!assetItem) return null;
@@ -49,7 +51,7 @@ class GoogleSheetsApiSync {
             }
         }
 
-        // Columns: A: no | B: No.RAB | C: Outlet | D: Nama item | E: Qty | F: Status Terkini
+        // Columns A:F in "Data Base Status" tab
         const range = "'" + this.sheetName + "'!A" + rowIndex + ":F" + rowIndex;
         const values = [[
             rowIndex - 1,
@@ -59,6 +61,30 @@ class GoogleSheetsApiSync {
             assetItem.qty || 1,
             assetItem.statusPengiriman || "📝 Pengajuan RAB"
         ]];
+
+        // Send via Webhook if available
+        if (this.config.webhookUrl) {
+            try {
+                await fetch(this.config.webhookUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        sheet: this.sheetName,
+                        rowIndex: rowIndex,
+                        no: rowIndex - 1,
+                        rabCode: assetItem.rabCode,
+                        outlet: assetItem.outlet,
+                        item: assetItem.item,
+                        qty: assetItem.qty,
+                        status: assetItem.statusPengiriman,
+                        picPenerima: assetItem.picPenerima,
+                        keterangan: assetItem.keterangan
+                    })
+                });
+            } catch(e) {
+                console.warn("[WebhookSync] Webhook call fallback:", e.message);
+            }
+        }
 
         return await this.updateCellValues(range, values);
     }
@@ -87,7 +113,7 @@ class GoogleSheetsApiSync {
             }
             return { success: true, data: await response.json() };
         } catch (error) {
-            console.warn("[GoogleSheetsAPI] API Call fallback:", error.message);
+            console.warn("[GoogleSheetsAPI] REST API update:", error.message);
             return { success: true, fallback: true, message: error.message };
         }
     }
@@ -100,6 +126,26 @@ class GoogleSheetsApiSync {
             results.push(res);
         }
         return results;
+    }
+
+    /**
+     * Generate 1-Click Copy Data for Tab "Data Base Status"
+     */
+    copyFormattedDataForDatabaseStatus(assets) {
+        let tsvContent = "no	No.RAB	Outlet	Nama item	Qty	Status Terkini
+";
+        assets.forEach((a, idx) => {
+            tsvContent += (idx + 1) + "	" + (a.rabCode || "-") + "	" + (a.outlet || "-") + "	" + (a.item || "-") + "	" + (a.qty || 1) + "	" + (a.statusPengiriman || "📝 Pengajuan RAB") + "
+";
+        });
+        
+        navigator.clipboard.writeText(tsvContent).then(() => {
+            console.log("Formatted data copied for Data Base Status tab!");
+        }).catch(err => {
+            console.error("Clipboard copy error:", err);
+        });
+
+        return tsvContent;
     }
 }
 

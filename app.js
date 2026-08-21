@@ -1049,5 +1049,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const btnCopyForSheet = document.getElementById('btnCopyForSheet');
+    if (btnCopyForSheet) {
+        btnCopyForSheet.addEventListener('click', () => {
+            if (window.sheetsApiSync && window.dataManager) {
+                const assets = window.dataManager.getAssets();
+                window.sheetsApiSync.copyFormattedDataForDatabaseStatus(assets);
+                window.sheetsApiSync.syncOutletBatch(assets);
+                showToast("📋 Data terformat berhasil disalin! Buka Tab 'Data Base Status' di Spreadsheet, lalu tekan Ctrl+V di sel A2.", "success");
+            }
+        });
+    }
+
     init();
 });
