@@ -352,15 +352,17 @@
 
     <!-- GOOGLE SHEETS API V4 DIRECT SYNC MODAL -->
     <div class="modal-backdrop" id="googleSheetsApiModal">
-        <div class="modal-dialog-card" style="max-width: 600px; padding: 0;">
-            <div class="dialog-header" style="background: #eff6ff;">
+        <div class="modal-dialog-card" style="max-width: 620px; max-height: 90vh; display: flex; flex-direction: column; padding: 0; overflow: hidden;">
+            <div class="dialog-header" style="background: #eff6ff; flex-shrink: 0; padding: 1.25rem 1.75rem;">
                 <div>
                     <h3 style="color: #1d4ed8; font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-cloud-arrow-up"></i> Direct Sync: Pemantauan New Outlet Spreadsheet</h3>
                     <p style="font-size: 0.75rem; color: #3b82f6; margin-top: 0.2rem;">ID: 1Dw7MH29XFiqx1bkHqMQ0lthYxhLfx3QWyVBWuzR-nh0 (Status & Done Transfer Direct Sync)</p>
                 </div>
                 <button class="dialog-close-btn" id="btnCloseApiModal"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div style="padding: 1.5rem;">
+            
+            <!-- Scrollable Body -->
+            <div style="padding: 1.5rem; overflow-y: auto; flex: 1;">
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; font-size: 0.8rem; color: #334155; line-height: 1.5;">
                     <div style="font-weight: 800; color: #0f172a; margin-bottom: 0.4rem;">⚡ Cara Mengaktifkan Otomatis Terisi ke Tab "Data Base Status":</div>
                     1. Buka Spreadsheet Anda ➔ Klik menu <b>Ekstensi ➔ Apps Script</b>.<br>
@@ -396,22 +398,30 @@ function doPost(e) {
                     3. Klik <b>Terapkan (Deploy) ➔ Penyebaran Baru ➔ Siapa saja (Anyone) ➔ Terapkan</b>.<br>
                     4. Salin URL Web App hasil deploy ke kolom Webhook di bawah ini.
                 </div>
-                <div style="margin-bottom: 1rem;">
-                    <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">URL Webhook Apps Script (Untuk Otomatis Isi Direct)</label>
-                    <input type="text" id="apiModalWebhookInput" placeholder="https://script.google.com/macros/s/.../exec" style="width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem;">
+                
+                <div style="margin-bottom: 1.25rem;">
+                    <label style="display: block; font-size: 0.825rem; font-weight: 800; color: #1e293b; margin-bottom: 0.35rem;">URL Webhook Apps Script (Untuk Otomatis Isi Direct)</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" id="apiModalWebhookInput" placeholder="https://script.google.com/macros/s/.../exec" style="flex: 1; padding: 0.65rem 0.85rem; border: 1.5px solid #3b82f6; border-radius: 8px; font-size: 0.85rem; font-weight: 600; background: #ffffff;">
+                        <button type="button" id="btnQuickSaveWebhook" style="background: #2563eb; color: #ffffff; padding: 0.65rem 1.2rem; border-radius: 8px; border: none; font-weight: 800; font-size: 0.825rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; box-shadow: 0 4px 12px rgba(37,99,235,0.25);"><i class="fa-solid fa-floppy-disk"></i> Simpan URL</button>
+                    </div>
                 </div>
-                <div style="margin-bottom: 1rem;">
+
+                <div style="margin-bottom: 1.25rem;">
                     <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">Google API Key (Opsional)</label>
                     <input type="text" id="apiModalKeyInput" placeholder="Masukkan Google Sheets API Key..." style="width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem;">
                 </div>
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                
+                <div style="display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.5rem;">
                     <input type="checkbox" id="apiModalAutoSyncChk" checked style="width: 1.1rem; height: 1.1rem; accent-color: #2563eb;">
                     <label for="apiModalAutoSyncChk" style="font-size: 0.85rem; font-weight: 700; color: #334155; cursor: pointer;">Otomatis Isi Tab "Data Base Status" Setiap Kali Input Logistik / Terima Outlet</label>
                 </div>
             </div>
-            <div class="dialog-footer">
-                <button type="button" class="btn-dialog-cancel" id="btnCancelApiModal">Batal</button>
-                <button type="button" class="btn-dialog-save" id="btnSaveApiConfig"><i class="fa-solid fa-check"></i> Simpan Konfigurasi Sync</button>
+
+            <!-- Fixed / Sticky Visible Footer -->
+            <div class="dialog-footer" style="padding: 1rem 1.75rem; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem; flex-shrink: 0;">
+                <button type="button" class="btn-dialog-cancel" id="btnCancelApiModal" style="padding: 0.65rem 1.25rem; border-radius: 8px; border: 1px solid #cbd5e1; background: #ffffff; color: #475569; font-weight: 700; cursor: pointer;">Batal</button>
+                <button type="button" class="btn-dialog-save" id="btnSaveApiConfig" style="background: #2563eb; color: #ffffff; padding: 0.65rem 1.75rem; border-radius: 8px; border: none; font-weight: 800; font-size: 0.875rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 14px rgba(37,99,235,0.35);"><i class="fa-solid fa-check"></i> Simpan Konfigurasi Sync</button>
             </div>
         </div>
     </div>

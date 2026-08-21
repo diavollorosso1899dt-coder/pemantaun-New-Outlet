@@ -1047,6 +1047,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCloseApiModal) btnCloseApiModal.addEventListener('click', () => { if (googleSheetsApiModal) googleSheetsApiModal.classList.remove('active'); });
     if (btnCancelApiModal) btnCancelApiModal.addEventListener('click', () => { if (googleSheetsApiModal) googleSheetsApiModal.classList.remove('active'); });
 
+    const btnQuickSaveWebhook = document.getElementById('btnQuickSaveWebhook');
+    if (btnQuickSaveWebhook) {
+        btnQuickSaveWebhook.addEventListener('click', () => {
+            if (window.sheetsApiSync) {
+                const webhookUrl = apiModalWebhookInput ? apiModalWebhookInput.value.trim() : '';
+                window.sheetsApiSync.saveConfig({ webhookUrl: webhookUrl });
+                if (webhookUrl && window.dataManager) {
+                    const allAssets = window.dataManager.getAssets();
+                    window.sheetsApiSync.syncOutletBatch(allAssets);
+                }
+            }
+            if (googleSheetsApiModal) googleSheetsApiModal.classList.remove('active');
+            showToast("💾 URL Webhook tersimpan & data terisi otomatis ke Spreadsheet!", "success");
+        });
+    }
+
     if (btnSaveApiConfig) {
         btnSaveApiConfig.addEventListener('click', () => {
             if (window.sheetsApiSync) {
@@ -1057,14 +1073,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     autoSync: apiModalAutoSyncChk ? apiModalAutoSyncChk.checked : true
                 });
                 
-                // Immediately push all current assets to the new Webhook URL!
                 if (webhookUrl && window.dataManager) {
                     const allAssets = window.dataManager.getAssets();
                     window.sheetsApiSync.syncOutletBatch(allAssets);
                 }
             }
             if (googleSheetsApiModal) googleSheetsApiModal.classList.remove('active');
-            showToast("✅ Konfigurasi Direct Auto Sync disimpan! Data sedang terisi otomatis ke Google Sheet...", "success");
+            showToast("✅ Konfigurasi Direct Auto Sync berhasil disimpan!", "success");
         });
     }
 
