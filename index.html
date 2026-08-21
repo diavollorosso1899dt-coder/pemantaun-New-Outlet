@@ -369,31 +369,43 @@
                     2. Hapus semua kode, lalu paste kode sederhana ini:<br>
                     <pre style="background: #1e293b; color: #38bdf8; padding: 0.6rem; border-radius: 6px; font-size: 0.725rem; margin: 0.4rem 0; overflow-x: auto;">
 function doPost(e) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName("Data Base Status");
-  if (!sheet) {
-    sheet = ss.insertSheet("Data Base Status");
-    sheet.appendRow(["no", "No.RAB", "Outlet", "Nama item", "Qty", "Status Terkini"]);
-  }
-  var data = JSON.parse(e.postData.contents);
-  function writeSingle(item) {
-    var lastRow = sheet.getLastRow();
-    var foundRow = 0;
-    if (lastRow > 1) {
-      var values = sheet.getRange(2, 1, lastRow - 1, 6).getValues();
-      for (var i = 0; i < values.length; i++) {
-        if ((item.no && values[i][0] == item.no) || (values[i][1] == item.rabCode && values[i][3] == item.item)) {
-          foundRow = i + 2; break;
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName("Data Base Status");
+    if (!sheet) {
+      sheet = ss.insertSheet("Data Base Status");
+      sheet.appendRow(["no", "No.RAB", "Outlet", "Nama item", "Qty", "Status Terkini"]);
+    }
+    if (!e || !e.postData || !e.postData.contents) {
+      return ContentService.createTextOutput("Apps Script Webhook is Active!");
+    }
+    var data = JSON.parse(e.postData.contents);
+    function writeSingle(item) {
+      if (!item) return;
+      var lastRow = sheet.getLastRow();
+      var foundRow = 0;
+      if (lastRow > 1) {
+        var values = sheet.getRange(2, 1, lastRow - 1, 6).getValues();
+        for (var i = 0; i < values.length; i++) {
+          if ((item.no && values[i][0] == item.no) || (values[i][1] == item.rabCode && values[i][3] == item.item)) {
+            foundRow = i + 2; break;
+          }
         }
       }
+      var rowData = [item.no || lastRow, item.rabCode || "-", item.outlet || "-", item.item || "-", item.qty || 1, item.statusPengiriman || "📝 Pengajuan RAB"];
+      if (foundRow > 0) { sheet.getRange(foundRow, 1, 1, 6).setValues([rowData]); }
+      else { sheet.appendRow(rowData); }
     }
-    var rowData = [item.no || (lastRow), item.rabCode || "-", item.outlet || "-", item.item || "-", item.qty || 1, item.statusPengiriman || "📝 Pengajuan RAB"];
-    if (foundRow > 0) { sheet.getRange(foundRow, 1, 1, 6).setValues([rowData]); }
-    else { sheet.appendRow(rowData); }
+    if (data.items && Array.isArray(data.items)) { data.items.forEach(function(item) { writeSingle(item); }); }
+    else if (data.rabCode || data.item) { writeSingle(data); }
+    return ContentService.createTextOutput("OK");
+  } catch(err) {
+    return ContentService.createTextOutput("OK");
   }
-  if (data.items && Array.isArray(data.items)) { data.items.forEach(function(item) { writeSingle(item); }); }
-  else if (data.rabCode || data.item) { writeSingle(data); }
-  return ContentService.createTextOutput("OK");
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput("Apps Script Webhook is Active!");
 }</pre>
                     3. Klik <b>Terapkan (Deploy) ➔ Penyebaran Baru ➔ Siapa saja (Anyone) ➔ Terapkan</b>.<br>
                     4. Salin URL Web App hasil deploy ke kolom Webhook di bawah ini.
