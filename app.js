@@ -1021,12 +1021,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCancelApiModal = document.getElementById('btnCancelApiModal');
     const btnSaveApiConfig = document.getElementById('btnSaveApiConfig');
     const apiModalKeyInput = document.getElementById('apiModalKeyInput');
+    const apiModalWebhookInput = document.getElementById('apiModalWebhookInput');
     const apiModalAutoSyncChk = document.getElementById('apiModalAutoSyncChk');
 
     if (btnOpenSheetsApiModal) {
         btnOpenSheetsApiModal.addEventListener('click', () => {
             if (window.sheetsApiSync) {
                 if (apiModalKeyInput) apiModalKeyInput.value = window.sheetsApiSync.config.apiKey || '';
+                if (apiModalWebhookInput) apiModalWebhookInput.value = window.sheetsApiSync.config.webhookUrl || '';
                 if (apiModalAutoSyncChk) apiModalAutoSyncChk.checked = window.sheetsApiSync.config.autoSync !== false;
             }
             if (googleSheetsApiModal) googleSheetsApiModal.classList.add('active');
@@ -1041,11 +1043,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.sheetsApiSync) {
                 window.sheetsApiSync.saveConfig({
                     apiKey: apiModalKeyInput ? apiModalKeyInput.value.trim() : '',
+                    webhookUrl: apiModalWebhookInput ? apiModalWebhookInput.value.trim() : '',
                     autoSync: apiModalAutoSyncChk ? apiModalAutoSyncChk.checked : true
                 });
             }
             if (googleSheetsApiModal) googleSheetsApiModal.classList.remove('active');
-            showToast("✅ Konfigurasi Direct Sync Google Sheets API berhasil disimpan!", "success");
+            showToast("✅ Konfigurasi Direct Auto Sync berhasil disimpan!", "success");
         });
     }
 

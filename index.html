@@ -362,10 +362,28 @@
             </div>
             <div style="padding: 1.5rem;">
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; font-size: 0.8rem; color: #334155; line-height: 1.5;">
-                    <div style="font-weight: 800; color: #0f172a; margin-bottom: 0.4rem;">💡 Cara Menghubungkan Google Spreadsheet:</div>
-                    1. Berikan hak akses <b>Editor</b> pada link Spreadsheet ke email bot:<br>
-                    <code style="background:#e2e8f0; padding:0.2rem 0.4rem; border-radius:4px; font-weight:700; color:#1e293b; display:inline-block; margin:0.3rem 0;">new-outlet-asset-sync@antigravity-asset-tracker.iam.gserviceaccount.com</code><br>
-                    2. Masukkan Google API Key (Opsional) untuk aktivasi REST v4 langsung.
+                    <div style="font-weight: 800; color: #0f172a; margin-bottom: 0.4rem;">⚡ Cara Mengaktifkan Otomatis Terisi ke Tab "Data Base Status":</div>
+                    1. Buka Spreadsheet Anda ➔ Klik menu <b>Ekstensi ➔ Apps Script</b>.<br>
+                    2. Hapus semua kode, lalu paste kode sederhana ini:<br>
+                    <pre style="background: #1e293b; color: #38bdf8; padding: 0.6rem; border-radius: 6px; font-size: 0.725rem; margin: 0.4rem 0; overflow-x: auto;">
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Data Base Status");
+  var data = JSON.parse(e.postData.contents);
+  if (data.items) {
+    data.items.forEach(function(i) {
+      sheet.appendRow([i.no, i.rabCode, i.outlet, i.item, i.qty, i.statusPengiriman]);
+    });
+  } else if (data.rabCode) {
+    sheet.appendRow([data.no, data.rabCode, data.outlet, data.item, data.qty, data.statusPengiriman]);
+  }
+  return ContentService.createTextOutput("OK");
+}</pre>
+                    3. Klik <b>Terapkan (Deploy) ➔ Penyebaran Baru ➔ Siapa saja (Anyone) ➔ Terapkan</b>.<br>
+                    4. Salin URL Web App hasil deploy ke kolom Webhook di bawah ini.
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">URL Webhook Apps Script (Untuk Otomatis Isi Direct)</label>
+                    <input type="text" id="apiModalWebhookInput" placeholder="https://script.google.com/macros/s/.../exec" style="width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem;">
                 </div>
                 <div style="margin-bottom: 1rem;">
                     <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">Google API Key (Opsional)</label>
@@ -373,7 +391,7 @@
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
                     <input type="checkbox" id="apiModalAutoSyncChk" checked style="width: 1.1rem; height: 1.1rem; accent-color: #2563eb;">
-                    <label for="apiModalAutoSyncChk" style="font-size: 0.85rem; font-weight: 700; color: #334155; cursor: pointer;">Otomatis Sync Kolom X,Y,Z Setiap Kali Input Logistik / Terima Outlet</label>
+                    <label for="apiModalAutoSyncChk" style="font-size: 0.85rem; font-weight: 700; color: #334155; cursor: pointer;">Otomatis Isi Tab "Data Base Status" Setiap Kali Input Logistik / Terima Outlet</label>
                 </div>
             </div>
             <div class="dialog-footer">
